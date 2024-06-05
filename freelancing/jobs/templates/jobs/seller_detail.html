@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title> {{object.name}} </title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-       
+{% extends 'jobs/_base.html' %}
+    {% block content %}
         <h1>{{object.name}}</h1>
-        <h1>{{object.tagline}}</h1>
         <h3>{{object.speciality}}</h3>
+        <h3>{{object.tagline}}</h3>
+        <p><a href={{object.website}} target="_blank" alt = "Seller's website">{{object.website}}</a></p>
+        <hr>
+        {{object.bio}}
 
-        <h1>{{object.bio}}</h1>
-        
-       
-    </body>
-</html>
+{% endblock content %}

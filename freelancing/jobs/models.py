@@ -30,7 +30,7 @@ class Seller(models.Model):
         ('Animator','Animator'),
         ('3D modeler','3D modeler'),
         ('Video Editor','Video Editor'),
-        ('Student(amateur)','Student(amateur)')
+    
        ]
 
 

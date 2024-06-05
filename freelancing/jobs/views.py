@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from jobs.models import Seller
 
@@ -9,3 +9,6 @@ def index(request):
 
 class SellerListView(ListView):
     model= Seller
+
+class SellerDetailView(DetailView):
+    model = Seller

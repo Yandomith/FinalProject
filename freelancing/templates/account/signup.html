@@ -3,16 +3,18 @@
 
 {% block content %}
 <div class="container ">
-    <div class="row pt-5">
+    <div class="row pt-5 ">
         <div class="col-md ">
 
         </div>
-        <div class="col-md pt-5">
+        <div class="col-md-auto px-5 pb-5 pt-4 border border-dark-subtle rounded-4 ">
             <div>
-                <form action="" method="post">
+                <div class="text-center display-5 pb-4">Signup</div>
+                <form action="" method="POST">
                     {% csrf_token %}
-                    {% crispy form %}
-                    <input type="submit" value="Signup">
+                   
+                    {{ form|crispy}}
+                    <input type="submit" value="SignUp">
                 </form>
             </div>
         </div>

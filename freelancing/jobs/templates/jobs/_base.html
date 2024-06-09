@@ -11,8 +11,11 @@
     <nav class="navbar bg-body-secondary ">
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'seller-list'%}">Wide Chronicles</a>
-
+        
+        {% if user.is_authenticated %}
         <!-- canvas  -->
+
+
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,15 +42,29 @@
 
 
           </div>
-
+           <!-- canvas footer -->
           <div class="offcanvas-footer">
-            <div class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <form class="d-flex mt-3">
-                <button class="btn btn-outline-success">ehehe</button>
+            
+              <form class="justify-content-center" action="{% url 'account_logout' %}" method="post">
+                  {% csrf_token %}
+                <button class="btn btn-outline-success" type="submit">Logout</button>
               </form>
-            </div>
+            
           </div>
+          <!-- end of canvas footer -->
         </div>
+
+        {% else %}
+        <div>
+          <a href="{% url 'account_login' %}"  class=" link-underline link-underline-opacity-0 px-3" >
+            login 
+          </a>
+          <a href="{% url 'account_signup' %}" class=" link-underline link-underline-opacity-0 px-3">
+            <button type="button" class="btn btn-primary" >Signup </button>
+          </a>
+        </div>
+        {% endif %}
+
       </div>
     </nav>
 

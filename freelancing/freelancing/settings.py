@@ -43,6 +43,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
+    # crispy forms 
+    'crispy_forms',
+    'crispy_bootstrap5',
+    
+
     # local Apps 
 
     'jobs',
@@ -143,7 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-LOGIN_REDIRECT_URL = 'freelancer-list' #needs changing to redirect to gig page
+LOGIN_REDIRECT_URL = 'seller-list' #needs changing to redirect to gig page
 ACCOUNT_LOGOUT_REDIRECT = 'freelancer-list'
 ACCOUNT_USERNAME_REQUIRED= False
 ACCOUNT_AUTHENCATION_METHOD = 'email'
@@ -154,3 +159,8 @@ ACCOUNT_SESSION_REMEMBER = True
 EMAIL_BACKEND = 'django.core.mail.backends.concole.EmailBackend'
 
 SITE_ID = 1
+
+# crispy froms Bootstrap5
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

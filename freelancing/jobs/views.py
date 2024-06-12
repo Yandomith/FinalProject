@@ -1,7 +1,8 @@
 from django.forms import BaseModelForm
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse,redirect
 from django.views.generic import ListView, DetailView,CreateView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 from jobs.models import Seller, Buyer
 
@@ -32,3 +33,11 @@ class BuyerCreateView(CreateView):
     def form_valid(self, form):
         form.instance.owner =self.request.user
         return super(SellerCreateView,self).form_valid(form)
+    
+@login_required
+def handle_login(request):
+    #check if has account 
+    if request.user.get_seller() or request.user.get_buyer():
+        return redirect(reverse_lazy('seller-list'))
+    
+    return render (request,'jobs/choose_account.html',{})

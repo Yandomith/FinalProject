@@ -148,7 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-LOGIN_REDIRECT_URL = 'seller-list' #needs changing to redirect to gig page
+LOGIN_REDIRECT_URL = 'handle-login' #needs changing to redirect to gig page
 ACCOUNT_LOGOUT_REDIRECT = 'seller-list'
 ACCOUNT_USERNAME_REQUIRED= False
 ACCOUNT_AUTHENCATION_METHOD = 'email'
@@ -156,7 +156,7 @@ ACCUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL= True
 ACCOUNT_SESSION_REMEMBER = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.concole.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
 

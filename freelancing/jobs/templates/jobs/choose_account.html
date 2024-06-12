@@ -8,17 +8,22 @@
 
         </div>
         <div class="col-md-auto">
-            <div class=" display-5 pb-4">Join as a Buyer or Seller</div>
-            <div class="row justify-content-center">
-                <div class="col-md">
-                    hehe
+            <div class=" display-5 ">Join as a Buyer or Seller</div>
+            <div class="row justify-content-center p-4  g-3">
+                <div class="col-md-5 ">
+                    <a href="{%  url 'buyer-create' %}"><button class="btn btn-outline-success w-100" type="submit" value="beBuyer">I’m a Buyer, I buy services and hire for a project.</button></a>
                 </div>
-                <div class="col-md">
-                    haha
+                <div class="col-md-5 ">
+                    <a href="{%  url 'seller-create' %}"><button class="btn btn-outline-success w-100 " type="submit" value="beSeller">I’m a Seller, I sell services and looking for a work.
+                    </button></a>
+
                 </div>
                
             </div>
             
+            Already have account? <a href=" {%  url 'account_login' %} " class="text-decoration-none text-reset">
+                <div class="text-center fw-lighter ">Login here</div>
+            </a>
         </div>
         <div class="col-md">
           

@@ -32,9 +32,6 @@ class Seller(models.Model):
         ('Video Editor','Video Editor'),
     
        ]
-
-
-
     owner = models.OneToOneField(User, on_delete= models.CASCADE)
     name= models.CharField(max_length=50)
     speciality= models.CharField (choices=speciality_choices, blank= False,max_length = 50 )

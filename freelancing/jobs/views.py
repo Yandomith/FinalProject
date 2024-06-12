@@ -19,25 +19,24 @@ class SellerDetailView(DetailView):
 class SellerCreateView(CreateView):
     model = Seller
     fields = ['name', 'tagline','bio','website']
-    success_url = reverse_lazy('Seller-list')
+    success_url = reverse_lazy('seller-list')
 
     def form_valid(self, form):
-        form.instance.owner =self.request.user
-        return super(SellerCreateView,self).form_valid(form)
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
     
 class BuyerCreateView(CreateView):
     model = Buyer
     fields = ['name','bio']
-    success_url = reverse_lazy('Seller-list')
+    success_url = reverse_lazy('seller-list')
 
     def form_valid(self, form):
-        form.instance.owner =self.request.user
-        return super(SellerCreateView,self).form_valid(form)
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
     
 @login_required
 def handle_login(request):
     #check if has account 
     if request.user.get_seller() or request.user.get_buyer():
         return redirect(reverse_lazy('seller-list'))
-    
     return render (request,'jobs/choose_account.html',{})

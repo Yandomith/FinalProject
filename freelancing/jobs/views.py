@@ -18,7 +18,7 @@ class SellerDetailView(DetailView):
 
 class SellerCreateView(CreateView):
     model = Seller
-    fields = ['name', 'tagline','bio','website']
+    fields = ['name', 'tagline','speciality','bio','website']
     success_url = reverse_lazy('seller-list')
 
     def form_valid(self, form):
@@ -40,3 +40,9 @@ def handle_login(request):
     if request.user.get_seller() or request.user.get_buyer():
         return redirect(reverse_lazy('seller-list'))
     return render (request,'jobs/choose_account.html',{})
+
+@login_required
+def account_option(request):
+    if request.user.get_seller() or request.user.get_buyer():
+        return redirect(reverse_lazy('seller-list'))
+    return render (request,'jobs/choose_account.html',{}) 

@@ -40,7 +40,3 @@ def handle_login(request):
     if request.user.get_seller() or request.user.get_buyer():
         return redirect(reverse_lazy('seller-list'))
     return render (request,'jobs/choose_account.html',{})
-
-@login_required
-def account_option(request):
-    return render (request,'jobs/choose_account.html',{}) 

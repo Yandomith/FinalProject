@@ -27,7 +27,7 @@ class SellerCreateView(CreateView):
     
 class BuyerCreateView(CreateView):
     model = Buyer
-    fields = ['name','bio']
+    fields = ['name','bio','location']
     success_url = reverse_lazy('seller-list')
 
     def form_valid(self, form):

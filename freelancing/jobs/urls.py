@@ -9,5 +9,6 @@ urlpatterns = [
     path('seller/<int:pk>/', SellerDetailView.as_view(), name= 'seller-detail'),
     path('seller/create/', SellerCreateView.as_view(), name='seller-create'),
     path('buyer/create/', BuyerCreateView.as_view(), name='buyer-create'),
+    path('jobs',index, name='job-list'),
 
 ]

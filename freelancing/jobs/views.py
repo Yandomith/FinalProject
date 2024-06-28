@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from jobs.models import Seller, Buyer
 
 def index(request):
-    return HttpResponse("hehe")
+    return render (request,'jobs/job_list.html')
 
 
 class SellerListView(ListView):

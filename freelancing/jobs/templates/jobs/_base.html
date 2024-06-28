@@ -34,7 +34,7 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">
                   {% if request.user.get_seller or request.user.get_buyer %}
-                    {% if user.get_seller != null%}
+                    {% if user.get_seller != none %}
                       Seller
                       {% else%}
                       Buyer
@@ -79,6 +79,7 @@
 
       <!-- nabar end  -->
     <div class="container">
+      
     {% block content %}
 
     {% endblock content %}

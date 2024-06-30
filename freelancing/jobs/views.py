@@ -9,7 +9,6 @@ from jobs.models import Seller, Buyer
 def index(request):
     return render (request,'jobs/job_list.html')
 
-
 class SellerListView(ListView):
     model= Seller
 
@@ -40,3 +39,7 @@ def handle_login(request):
     if request.user.get_seller() or request.user.get_buyer():
         return redirect(reverse_lazy('seller-list'))
     return render (request,'jobs/choose_account.html',{})
+
+
+def jobdetail(request):
+    return render (request,'jobs/job_detail.html')

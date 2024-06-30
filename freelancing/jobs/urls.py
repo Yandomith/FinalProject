@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index,SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,handle_login
+from .views import index,SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,handle_login,jobdetail
 
 
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
     path('seller/create/', SellerCreateView.as_view(), name='seller-create'),
     path('buyer/create/', BuyerCreateView.as_view(), name='buyer-create'),
     path('jobs',index, name='job-list'),
+    path('job',jobdetail, name='job-detail'),
 
 ]

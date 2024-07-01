@@ -7,8 +7,11 @@ from jobs.models import Seller, Buyer, Job
 from django.core.exceptions import PermissionDenied
 
 
-def index(request):
-    return render(request, 'jobs/job_list.html')
+class JobListView(ListView):
+    model = Job
+    template_name = 'jobs/job_list.html'
+    context_object_name = 'jobs'
+    paginate_by = 10
 
 class SellerListView(ListView):
     model = Seller
@@ -51,7 +54,7 @@ class JobCreateView(CreateView):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             raise PermissionDenied
-        if request.user.role() != 'buyer':
+        if request.user.role() != 'Buyer':
             return HttpResponseForbidden("You do not have permission to post jobs.")
         return super().dispatch(request, *args, **kwargs)
 

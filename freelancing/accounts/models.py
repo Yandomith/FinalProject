@@ -18,8 +18,8 @@ class CustomUser(AbstractUser):
     
     def role(self):
         if hasattr(self, 'seller'):
-            return 'seller'
+            return 'Seller'
         elif hasattr(self, 'buyer'):
-            return 'buyer'
+            return 'Buyer'
         else:
             return None

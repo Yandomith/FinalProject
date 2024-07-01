@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView,CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 
-from jobs.models import Seller, Buyer
+from jobs.models import Seller, Buyer, Job
 
 def index(request):
     return render (request,'jobs/job_list.html')
@@ -43,3 +43,14 @@ def handle_login(request):
 
 def jobdetail(request):
     return render (request,'jobs/job_detail.html')
+
+
+class JobCreateView(CreateView):
+    model = Job
+    fields = ['title','budget','description','requirement']
+    success_url = reverse_lazy('job-list')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    

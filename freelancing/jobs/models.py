@@ -121,7 +121,6 @@ class Buyer(models.Model):
         ("Western Rukum", "Western Rukum"),
     ]
 
-
     owner = models.OneToOneField(User, on_delete= models.CASCADE)
     name= models.CharField(max_length=50)
     bio = models.TextField(blank=True)
@@ -129,6 +128,28 @@ class Buyer(models.Model):
     
     def  __str__(self):
         return f"{self.id} | {self.name}"
+
+import uuid
+
+class Job(models.Model):
+    owner = models.OneToOneField(User, on_delete=models.CASCADE)
+    title = models.TextField()
+    budget = models.IntegerField()
+    description = models.TextField()
+    requirement = models.CharField(max_length=1000)
+    code = models.CharField(max_length=10, unique=True, blank=True)  # Add a new field for the unique code
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = self.generate_unique_code()
+        super(Job, self).save(*args, **kwargs)
+
+    def generate_unique_code(self):
+        return str(uuid.uuid4())[:10]  # Generate a unique code, you can customize the length and format
+
+    def __str__(self):
+        return f"{self.id} | {self.title}"
+
 
 
     

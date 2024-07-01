@@ -33,16 +33,15 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">
-                  {% if request.user.get_seller or request.user.get_buyer %}
-                    {% if user.get_seller != none %}
-                      Seller
-                      {% else%}
-                      Buyer
-                      {% endif %}
-                  {% else %} 
-                  <a href=" {% url 'handle-login' %}"><div class="text-center mt-4 fw-lighter">Set Your accout Option here </div> </a>
-                  {% endif %}</a>
-              </li>
+                    {% if request.user.role %}
+                      {{ request.user.role }}
+                    {% else %}
+                        <a href="{% url 'handle-login' %}">
+                            <div class="text-center mt-4 fw-lighter">Set Your account Option here</div>
+                        </a>
+                    {% endif %}
+                </a>
+            </li>            
             </ul>
             <form class="d-flex mt-3" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

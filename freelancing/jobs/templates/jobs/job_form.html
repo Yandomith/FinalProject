@@ -2,7 +2,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-{% csrf_token %}
-                   
-{{ form|crispy}}
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-success w-100 mt-3" type="submit">Publish</button>
+</form>
 {% endblock content %}

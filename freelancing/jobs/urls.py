@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,handle_login,jobdetail,JobCreateView,JobListView
+from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,handle_login,JobDetailView,JobCreateView,JobListView
 
 
 urlpatterns = [
@@ -10,6 +10,6 @@ urlpatterns = [
     path('buyer/create/', BuyerCreateView.as_view(), name='buyer-create'),
     path('job/create/', JobCreateView.as_view(), name='job-create'),
     path('jobs/',JobListView.as_view(), name='job-list'),
-    path('job/<int:code>',jobdetail, name='job-detail'),
+    path('job/<int:pk>/',JobDetailView.as_view(), name='job-detail'),
 
 ]

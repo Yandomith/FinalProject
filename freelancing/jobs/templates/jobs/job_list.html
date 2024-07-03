@@ -7,7 +7,7 @@
         <div>Browse the most recent jobs that match your skills and profile description to the skills clients are looking for.</div>
     </div>
     {% for job in jobs %}
-    <a href="#" class=" text-black text-decoration-none">
+    <a href="{{job.pk}}" class=" text-black text-decoration-none"> {{job.pk}}
     <div class="row shadow border-top p-3 mb-4 bg-body rounded ">
         <div >Featured</div>
         <div class="col-md">Posted #### ago</div> 
@@ -22,5 +22,5 @@
     
     </div>
     </a>
-    {% endfor %}        
+    {% endfor %}                  
 {% endblock content%}

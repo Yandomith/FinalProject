@@ -149,7 +149,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 LOGIN_REDIRECT_URL = 'handle-login' #needs changing to redirect to gig page
-ACCOUNT_LOGOUT_REDIRECT = 'seller-list'
+ACCOUNT_LOGOUT_REDIRECT = 'job-list'
 ACCOUNT_USERNAME_REQUIRED= False
 # Corrected typo in ACCOUNT_AUTHENTICATION_METHOD
 ACCOUNT_AUTHENTICATION_METHOD = 'email'

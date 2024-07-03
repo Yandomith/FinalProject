@@ -13,6 +13,12 @@ class JobListView(ListView):
     context_object_name = 'jobs'
     paginate_by = 10
 
+class JobDetailView(DetailView):
+    model = Job
+    template_name = 'jobs/job_detail.html'
+    # context_object_name = 'jobs'
+
+
 class SellerListView(ListView):
     model = Seller
 
@@ -22,7 +28,7 @@ class SellerDetailView(DetailView):
 class SellerCreateView(CreateView):
     model = Seller
     fields = ['name', 'tagline', 'speciality', 'bio', 'website']
-    success_url = reverse_lazy('seller-list')
+    success_url = reverse_lazy('job-list')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -31,7 +37,7 @@ class SellerCreateView(CreateView):
 class BuyerCreateView(CreateView):
     model = Buyer
     fields = ['name', 'bio', 'location']
-    success_url = reverse_lazy('seller-list')
+    success_url = reverse_lazy('job-list')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -40,11 +46,8 @@ class BuyerCreateView(CreateView):
 @login_required
 def handle_login(request):
     if hasattr(request.user, 'seller') or hasattr(request.user, 'buyer'):
-        return redirect(reverse_lazy('seller-list'))
+        return redirect(reverse_lazy('job-list'))
     return render(request, 'jobs/choose_account.html')
-
-def jobdetail(request):
-    return render(request, 'jobs/job_detail.html')
 
 class JobCreateView(CreateView):
     model = Job

@@ -62,5 +62,5 @@ class JobCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form.instance.owner = self.request.user
+        form.instance.buyer = self.request.user.buyer
         return super().form_valid(form)

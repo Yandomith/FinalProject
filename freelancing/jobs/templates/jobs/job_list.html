@@ -7,17 +7,17 @@
         <div>Browse the most recent jobs that match your skills and profile description to the skills clients are looking for.</div>
     </div>
     {% for job in jobs %}
-    <a href="{{job.pk}}" class=" text-black text-decoration-none"> {{job.pk}}
+    <a href="{{job.pk}}" class=" text-black text-decoration-none"> 
     <div class="row shadow border-top p-3 mb-4 bg-body rounded ">
         <div >Featured</div>
         <div class="col-md">Posted #### ago</div> 
         <div class="row ">
             <div class="d-flex justify-content-between">
-                <div class="text-start text-truncate col-8">{{ job.title }} {{ job.owner }}</div>
+                <div class="text-start text-truncate col-8">{{ job.title }} {{ job.buyer }}</div>
                 <div class=" text-end">{{job.budget}}</div>
             </div>
             <div class="col-md-auto py-3 text-truncate">{{job.description}}</div>
-            <div class="col">TAGS####</div>            
+            <div class="col">{{job.timestamp}}</div>            
         </div>
     
     </div>

@@ -132,7 +132,7 @@ class Buyer(models.Model):
         return f"{self.id} | {self.name}"
 
 class Job(models.Model):
-    buyer = models.OneToOneField(Buyer, on_delete=models.CASCADE)
+    buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     budget = models.IntegerField()
     description = models.TextField()

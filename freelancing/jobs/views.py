@@ -18,6 +18,13 @@ class JobDetailView(DetailView):
     template_name = 'jobs/job_detail.html'
     # context_object_name = 'jobs'
 
+    def get_object(self, queryset=None):
+        code = self.kwargs.get("code")
+        try:
+            return Job.objects.get(code=code)
+        except Job.DoesNotExist:
+            raise Http404("Job not found")
+
 
 class SellerListView(ListView):
     model = Seller

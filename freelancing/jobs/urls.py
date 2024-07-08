@@ -8,8 +8,9 @@ urlpatterns = [
     path('seller/<int:pk>/', SellerDetailView.as_view(), name= 'seller-detail'),
     path('seller/create/', SellerCreateView.as_view(), name='seller-create'),
     path('buyer/create/', BuyerCreateView.as_view(), name='buyer-create'),
-    path('jobs/create/', JobCreateView.as_view(), name='job-create'),
-    path('jobs/',JobListView.as_view(), name='job-list'),
-    path('jobs/<int:pk>/',JobDetailView.as_view(), name='job-detail'),
+    path('job/create/', JobCreateView.as_view(), name='job-create'),
+    path('find-work/',JobListView.as_view(), name='job-list'),
+    path('job/<str:code>/',JobDetailView.as_view(), name='job-detail'),
 
 ]
+ 

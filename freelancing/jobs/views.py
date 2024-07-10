@@ -13,6 +13,12 @@ class JobListView(ListView):
     context_object_name = 'jobs'
     paginate_by = 10
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['speciality_choices'] = Seller.SPECIALITY_CHOICES
+        context['location_choices'] = Buyer.LOCATION_CHOICES
+        return context
+
 class JobDetailView(DetailView):
     model = Job
     template_name = 'jobs/job_detail.html'

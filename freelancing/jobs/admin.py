@@ -6,3 +6,4 @@ from .models import Seller, Buyer,Job
 admin.site.register(Seller)
 admin.site.register(Buyer)
 admin.site.register(Job)
+

@@ -48,12 +48,14 @@ INSTALLED_APPS = [
     # crispy forms 
     'crispy_forms',
     'crispy_bootstrap5',
-    
 
     # local Apps 
-
     'jobs',
     'accounts',
+
+    # extra lib
+    'fontawesome_5',
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [

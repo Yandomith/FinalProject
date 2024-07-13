@@ -3,7 +3,7 @@
 {% block content%}
 
     
-    <div class="row text-center p-3"> 
+    <div class="row text-center pb-4 pt-2"> 
         <div>Browse the most recent jobs that match your skills and profile description to the skills clients are looking for.</div>
     </div>    
     <div class="job-listing-area pt-120 pb-120">
@@ -13,29 +13,17 @@
                 <div class="col-xl-3 col-lg-3 col-md-4">
                     <div class="row">
                         <div class="col-12">
-                                <div class="small-section-tittle2 mb-45">
-                                <div class="ion"> <svg 
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    width="20px" height="12px">
-                                <path fill-rule="evenodd"  fill="rgb(27, 207, 107)"
-                                    d="M7.778,12.000 L12.222,12.000 L12.222,10.000 L7.778,10.000 L7.778,12.000 ZM-0.000,-0.000 L-0.000,2.000 L20.000,2.000 L20.000,-0.000 L-0.000,-0.000 ZM3.333,7.000 L16.667,7.000 L16.667,5.000 L3.333,5.000 L3.333,7.000 Z"/>
-                                </svg>
-                                </div>
-                                <h4>Filter Jobs</h4>
-                            </div>
+                                <h5>Filter Jobs</h5>     
                         </div>
                     </div>
                     <!-- Job Category Listing start -->
-                    <div class="job-category-listing mb-50">
+                    <div class="job-category-listing mb-3">
                         <!-- single one -->
                         <div class="single-listing">
-                           <div class="small-section-tittle2">
-                                 <h4>Job Category</h4>
-                           </div>
+                                 <h6>Job Category</h6>
                             <!-- Select job items start -->
                             <div class="select-job-items2">
-                                <select name="select">
+                                <select name="select" class="form-select">
                                     <option value="">All Category</option>
                                     {% for speciality in speciality_choices %}
                                         <option value="{{ speciality.0 }}">{{ speciality.1 }}</option>
@@ -48,22 +36,24 @@
                         <!-- single two -->
                         <div class="single-listing">
                            <div class="small-section-tittle2">
-                                 <h4>Job Location</h4>
+                                 <h6>Job Location</h6>
                            </div>
                             <!-- Select job items start -->
                             <div class="select-job-items2">
-                                <select name="select">
+                                <select name="select" class="form-select">
                                     <option value="">Anywhere</option>
                                     {% for location in location_choices %}
                                         <option value="{{ location.0 }}">{{ location.1 }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
+                        </div>
                             <!--  Select job items End-->
+                        <div class="single-listing">
                             <!-- select-Categories start -->
                             <div class="select-Categories pt-80 pb-50">
                                 <div class="small-section-tittle2">
-                                    <h4>Experience</h4>
+                                    <h6>Experience</h6>
                                 </div>
                                 <label class="container">1-2 Years
                                     <input type="checkbox" >
@@ -89,7 +79,7 @@
                             <!-- select-Categories start -->
                             <div class="select-Categories pb-50">
                                 <div class="small-section-tittle2">
-                                    <h4>Posted Within</h4>
+                                    <h6>Posted Within</h6>
                                 </div>
                                 <label class="container">Any
                                     <input type="checkbox" >
@@ -129,44 +119,46 @@
                             <!-- Count of Job list Start -->
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="count-job mb-30">
-                                        <span>{{ jobs.count }} jobs available</span>
+                                    <div>
+                                        <span class="float-start">{{ jobs.count }} jobs available</span>
                                         <!-- Select job items start -->
-                                        <div class="select-job-items">
-                                            <span>Sort by</span>
-                                            <select name="select">
-                                                <option value="">None</option>
+
+                                        <!-- <div class="float-end">
+                                            <span class="mb-3">Sort by</span>
+                                            <select class="form-select form-select-sm" aria-label="None">
+                                               <option value="">None</option>
                                                 <option value="">job list</option>
                                                 <option value="">job list</option>
                                                 <option value="">job list</option>
                                             </select>
-                                        </div>
-                                        <!--  Select job items End-->
+                                        </div> -->
+                                       
                                     </div>
                                 </div>
                             </div>
                          
-
-
                         {% for job in jobs %}
-                            <div class="single-job-items mb-20 ">
-                                <div class="job-items">
-                                    <div class="job-tittle ">
-                                        <a href="{% url 'job-detail' job.code %}" class=" text-decoration-none">
-                                            {{ job.title|truncatechars:80}}
+                        <div class="row">
+                            <div class="single-job-items  ">
+                                <div class="job-tittle col-md-8 float-start " >
+                                        <a href="{% url 'job-detail' job.code %}" class=" text-decoration-none text-truncate">
+                                            {{ job.title}}
                                         </a>
+                                        
+                                        <p class="text-truncate pt-2">{{job.description}}</p>
                                         <ul>
                                             <li> <i class="fas fa-user-alt"></i>{{ job.buyer.name}}</li>
                                             <li><i class="fas fa-map-marker-alt"></i>{{ job.buyer.location}}</li>
                                             <li>Rs. {{job.budget|intcomma}}</li>
                                         </ul>
-                                    </div>
+                                 
                                 </div>
-                                <div class="items-link items-link2 float-end">
-                                    <a href="{% url 'job-detail' job.code %}">Apply</a>
+                                <div class="items-link float-end">
+                                    <a href="{% url 'job-detail' job.code %}" class="text-decoration-none">Apply</a>
                                     <span>{{job.timestamp|naturaltime}}</span>
                                 </div>
                             </div>
+                        </div>
                         {% endfor %}  
 
                         </div>

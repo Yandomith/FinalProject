@@ -7,6 +7,7 @@
     color: #198754;
     transition: .4s;
     overflow: hidden;
+    text-decoration: none;
 }
 
 .single-job-items .job-tittle p {
@@ -40,8 +41,6 @@
 .single-job-items:hover {
     box-shadow: 0px 10px 25px 0px rgba(26, 58, 45, 0.099);
 }
-
-
 
 .items-link a {
     color: #198754;

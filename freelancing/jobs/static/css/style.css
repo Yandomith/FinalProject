@@ -1,3 +1,4 @@
+
 .single-job-items {
     padding: 36px 30px;
     transition: .4s;
@@ -23,7 +24,7 @@
 .single-job-items .job-tittle ul li {
     display: inline-block;
     margin-right: 48px;
-    font-size: 15px;
+    font-size: 12px;
     color: #808080;
     line-height: 1.8;
 }
@@ -33,7 +34,7 @@
 }
 
 .single-job-items .job-tittle ul li i {
-    font-size: 15px;
+    font-size: 12px;
     color: #bbbbbb;
     margin-right: 10px;
 }
@@ -131,7 +132,7 @@
 
 .pagination-area .page-link {
     border: 0;
-    font-size: 15px;
+    font-size: 12px;
     text-align: center;
     background: none;
     box-shadow: none;
@@ -158,3 +159,22 @@
     color: #fff;
 }
 
+/* detail page  */
+
+.post-details2 ul{padding-left:30px}
+
+.post-details2 ul li{list-style-type:circle}
+
+.post-details3{padding:30px 30px 30px 30px;border:1px solid #ededed}
+
+.post-details3 ul li{display:flex;justify-content:space-between;margin-bottom:12px}
+
+.post-details3 ul li:last-child{margin-bottom:50px}
+
+.post-details4 span{color:#5b5c6e;font-weight:700;margin-bottom:10px;display:block;font-size:18px}
+
+.post-details4 p{margin-bottom:30px;display:block}
+
+.post-details4 ul li{color:#5b5c6e;font-weight:700;font-size:18px;display:block}
+
+.post-details4 ul li span{color:#5b5c6e;font-weight:400;font-size:16px;display:inline-block;padding-left:18px}@media only screen and (min-width: 992px) and (max-width: 1199px){.company-img-details{margin-bottom:20px}}@media (max-width: 767px){.job-listing-area{padding-top:70px;padding-bottom:70px}}@media only screen and (min-width: 576px) and (max-width: 767px){.job-listing-area{padding-top:70px;padding-bottom:70px}}

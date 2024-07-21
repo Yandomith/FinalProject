@@ -26,7 +26,7 @@
         {% if user.is_authenticated %}
         <!-- canvas  -->
         <div><a href="{% url 'job-list' %}">
-          <div class="text-center mt-4 fw-lighter">Find Work</div>
+          <div class="text-center mt-4 fw-lighter">{{ user.user_name }}</div>
       </a></div>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

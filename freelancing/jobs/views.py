@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView,UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseForbidden
@@ -62,6 +62,8 @@ def handle_login(request):
         return redirect(reverse_lazy('job-list'))
     return render(request, 'jobs/choose_account.html')
 
+
+
 class JobCreateView(CreateView):
     model = Job
     fields = ['title', 'budget', 'description', 'requirement']
@@ -76,4 +78,28 @@ class JobCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.buyer = self.request.user.buyer
+        return super().form_valid(form)
+
+
+class JobUpdateView(UpdateView):
+    model = Job
+    fields = ['title', 'budget', 'description', 'requirement']
+    success_url = reverse_lazy('job-list')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        if request.user.role() != 'Buyer':
+            return HttpResponseForbidden("You do not have permission to post jobs.")
+        
+        job = get_object_or_404(Job, code=kwargs['code'])
+        if job.buyer != request.user.buyer:
+            return HttpResponseForbidden("You do not have permission to edit this job.")
+        
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_object(self, queryset=None):
+        # Fetch the Job object using the unique code
+        return get_object_or_404(Job, code=self.kwargs['code'])
+    def form_valid(self, form):
         return super().form_valid(form)

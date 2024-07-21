@@ -23,3 +23,10 @@ class CustomUser(AbstractUser):
             return 'Buyer'
         else:
             return None
+        
+    def user_name(user):
+        if hasattr(user, 'seller'):
+            return user.seller.name
+        elif hasattr(user, 'buyer'):
+            return user.buyer.name
+        return user.username

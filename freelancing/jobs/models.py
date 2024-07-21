@@ -145,8 +145,19 @@ class Job(models.Model):
             self.code = self.generate_unique_code()
         super(Job, self).save(*args, **kwargs)
 
-    def generate_unique_code(self):
+    def generate_unique_code(self): 
         return str(uuid.uuid4())[:10]
 
     def __str__(self):
         return f"{self.id} | {self.title}"
+
+class ApplyJob(models.Model):
+    status_choices=(
+        ('Accepted', 'Accepted'),
+        ('Rejected', 'Rejected'),
+        ('Pending', 'Pending')
+    )
+    user = models.ForeignKey(User , on_delete= models.CASCADE)
+    Job = models.ForeignKey(Job, on_delete= models.CASCADE)
+    timestamp= models.DateTimeField(auto_now_add=True)
+    status= models.CharField(max_length=10, choices=status_choices)

@@ -3,8 +3,9 @@ from django.views.generic import ListView, DetailView, CreateView,UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseForbidden
-from jobs.models import Seller, Buyer, Job
+from jobs.models import Seller, Buyer, Job,ApplyJob
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class JobListView(ListView):
@@ -103,3 +104,29 @@ class JobUpdateView(UpdateView):
         return get_object_or_404(Job, code=self.kwargs['code'])
     def form_valid(self, form):
         return super().form_valid(form)
+    
+
+class ApplyJobCreateView(LoginRequiredMixin, CreateView):
+    model = ApplyJob
+    fields = ['status']  # Adjust fields as necessary
+    template_name = 'jobs/applyjob_form.html'
+    success_url = reverse_lazy('job-list')  # Adjust as necessary
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+
+        # Check if user is a seller
+        if not hasattr(request.user, 'seller'):
+            return HttpResponseForbidden("You must be a seller to apply for jobs.")
+
+        # Get the job based on the code from the URL
+        self.job = get_object_or_404(Job, code=kwargs['code'])
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        # Set the job and user fields
+        form.instance.user = self.request.user
+        form.instance.Job = self.job
+        return super().form_valid(form) 

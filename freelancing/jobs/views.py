@@ -19,6 +19,12 @@ class JobListView(ListView):
         context['speciality_choices'] = Seller.SPECIALITY_CHOICES
         context['location_choices'] = Buyer.LOCATION_CHOICES
         return context
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Job.objects.filter(title__icontains=query)  # Adjust fields as needed
+        return Job.objects.all()
 
 class JobDetailView(DetailView):
     model = Job
@@ -108,7 +114,7 @@ class JobUpdateView(UpdateView):
 
 class ApplyJobCreateView(LoginRequiredMixin, CreateView):
     model = ApplyJob
-    fields = ['status']  # Adjust fields as necessary
+    fields = []  # Adjust fields as necessary
     template_name = 'jobs/applyjob_form.html'
     success_url = reverse_lazy('job-list')  # Adjust as necessary
 

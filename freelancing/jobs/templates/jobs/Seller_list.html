@@ -1,7 +1,7 @@
 {% extends 'jobs/_base.html' %}
 
 {% block content %}
-    {% if request.user.role %}
+    <!-- {% if request.user.role %}
         {% for Seller in object_list %}
             <ul>
                 <li>{{ Seller.name }}</li>
@@ -12,5 +12,11 @@
         <div class="alert alert-danger">
             {{ user }}, your account type is not fixed. Please select the type of account you want <a href="{% url 'handle-login' %}">here</a>.
         </div>
-    {% endif %}
+    {% endif %} -->
+
+    {% for Seller in object_list %}
+            <ul>
+                <li>{{ Seller.name }}</li>
+            </ul>
+        {% endfor %}
 {% endblock content %}

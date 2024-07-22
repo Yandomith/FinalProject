@@ -116,6 +116,9 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div>
+                                        {% if request.GET.q %}
+                                            <p>Search results for "{{ request.GET.q }}":</p>
+                                        {% endif %}
                                         <span class="float-start">{{ jobs.count }} jobs available</span>
                                         <!-- Select job items start -->
 
@@ -135,13 +138,13 @@
                         {% for job in jobs %}
                         <div class="row">
                             <div class="single-job-items  ">
-                                <div class="job-tittle col-md-8 float-start " >
+                                <div class="job-tittle col-8 float-start text-wrap">
                                        
-                                        <a href="{% url 'job-detail' job.code %}" class=" text-decoration-none text-truncate">
+                                        <a href="{% url 'job-detail' job.code %}" class=" text-decoration-none">
                                             {{ job.title}}
                                         </a>
                                         
-                                        <p class="text-truncate pt-2">{{job.description}}</p>
+                                        <p class="text-truncate pt-2 " >{{job.description}}</p>
                                         <ul>
                                             <li> <i class="fas fa-user-alt"></i>{{ job.buyer.name}}</li>
                                             <li><i class="fas fa-map-marker-alt"></i>{{ job.buyer.location}}</li>

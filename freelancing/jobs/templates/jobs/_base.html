@@ -14,23 +14,44 @@
     <style>
       body::-webkit-scrollbar {
         display: none;
+        
       }
     </style>
 </head>
 <body>
     <!-- navbar start -->
     <nav class="navbar navbar-dark bg-dark text-light ">
-      <div class="container-fluid">
+      <div class="container-fluid  ">
         <a class="navbar-brand" href="{% url 'seller-list'%}">Wide Chronicles</a>
+
         
         {% if user.is_authenticated %}
         <!-- canvas  -->
-        <div><a href="{% url 'job-list' %}">
-          <div class="text-center mt-4 fw-lighter">{{ user.user_name }}</div>
-      </a></div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+          <a href="{% url 'job-list' %}" class="text-light fw-lighter text-decoration-none fs-6 ">
+            Explore Jobs 
+          </a>
+
+          <div class="gap-5 d-flex">
+            <form class="form-inline my-2 my-lg-0 gap-2 d-flex" method="get" action="{% url 'job-list' %}">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search jobs..." name="q" value="{{ request.GET.q }}">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        
+          <div class="gap-4 d-flex">
+            <a href="#" class="pt-2 text-light">
+              <i class="fas fa-envelope position-relative "> <span class="position-absolute top-0 end-10 translate-middle-y badge rounded-circle bg-danger p-1 "><span class="visually-hidden">unread messages</span></span></i>
+            </a>
+            <a href="#" class="pt-2 text-light">
+              <i class="fas fa-bell position-relative "> <span class="position-absolute top-0 end-10 translate-middle-y badge rounded-circle bg-danger p-1 "><span class="visually-hidden">unread messages</span></span></i>
+            </a>
+          </div>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+        </div>
+
         <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
           <div class="offcanvas-header">
@@ -44,7 +65,6 @@
                 <a class="nav-link active" aria-current="page" href="#">Profile</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
                     {% if request.user.role %}
                       {{ request.user.role }}
                     {% else %}
@@ -52,13 +72,8 @@
                             <div class="text-center mt-4 fw-lighter">Set Your account Option here</div>
                         </a>
                     {% endif %}
-                </a>
             </li>            
             </ul>
-            <form class="d-flex mt-3" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
 
 
           </div>
@@ -75,11 +90,14 @@
         </div>
 
         {% else %}
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          
+        <div class="d-grid gap-3 d-flex justify-content-md-end ">
+          <a href="{% url 'job-list' %}" class=" p-2 text-light  fw-lighter text-decoration-none">
+            Explore Jobs 
+          </a>
           <a href="{% url 'account_login' %}">
             <button type="button" class=" btn btn-close-white" >LOGIN</button>
           </a>
-
           <a href="{% url 'account_signup' %}">
             <button type="button" class="btn btn-success " >SIGNUP</button>
           </a>

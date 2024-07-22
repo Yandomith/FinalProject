@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   {% load static %}
-  {% load fontawesome_5 %}
+  {% load icon %}
   {% load bootstrap5 %}
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,6 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% fontawesome_5_static %}
     <style>
       body::-webkit-scrollbar {
         display: none;
@@ -23,7 +22,6 @@
     <nav class="navbar navbar-dark bg-dark text-light ">
       <div class="container-fluid  ">
         <a class="navbar-brand" href="{% url 'seller-list'%}">Wide Chronicles</a>
-
         
         {% if user.is_authenticated %}
         <!-- canvas  -->
@@ -39,15 +37,15 @@
         
           <div class="gap-4 d-flex">
             <a href="#" class="pt-2 text-light">
-              <i class="fas fa-envelope position-relative "> <span class="position-absolute top-0 end-10 translate-middle-y badge rounded-circle bg-danger p-1 "><span class="visually-hidden">unread messages</span></span></i>
+              <i class="position-relative "> {% icon "mail" %}<span class="position-absolute top-0 end-10 translate-middle-y badge rounded-circle bg-danger p-1 "><span class="visually-hidden">unread messages</span></span></i>
             </a>
             <a href="#" class="pt-2 text-light">
-              <i class="fas fa-bell position-relative "> <span class="position-absolute top-0 end-10 translate-middle-y badge rounded-circle bg-danger p-1 "><span class="visually-hidden">unread messages</span></span></i>
+              <i class=" position-relative "> {% icon "bell" %}<span class="position-absolute top-0 end-10 translate-middle-y badge rounded-circle bg-danger p-1 "><span class="visually-hidden">unread messages</span></span></i>
             </a>
           </div>
 
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon">{% icon "align-right" class="css-class"%}</span>
           </button>
 
         </div>
@@ -62,7 +60,7 @@
           <div class="offcanvas-body ">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Profile</a>
+                <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %}Profile</a>
               </li>
               <li class="nav-item">
                     {% if request.user.role %}
@@ -72,20 +70,35 @@
                             <div class="text-center mt-4 fw-lighter">Set Your account Option here</div>
                         </a>
                     {% endif %}
-            </li>            
+              </li>  
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#"> {% icon "bar-chart-2" %} Ayalytics</a>
+              </li>  
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#"> {% icon "package" %} Orders</a>
+              </li>  
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#"> {% icon "settings" %} Account Settings</a>
+              </li> 
+              <li>
+              <form class="justify-content-center" action="{% url 'account_logout' %}" method="post">
+                {% csrf_token %}
+                {% icon "log-out" %}<button class="btn text-light " type="submit">Logout</button>
+              </form>
+              </li>
             </ul>
 
 
           </div>
            <!-- canvas footer -->
-          <div class="offcanvas-footer">
+          <!-- <div class="offcanvas-footer">
             
               <form class="justify-content-center" action="{% url 'account_logout' %}" method="post">
                   {% csrf_token %}
                 <button class="btn btn-outline-success" type="submit">Logout</button>
               </form>
             
-          </div>
+          </div> -->
           <!-- end of canvas footer -->
         </div>
 

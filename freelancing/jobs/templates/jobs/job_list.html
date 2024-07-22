@@ -1,6 +1,7 @@
 {% extends 'jobs/_base.html' %}
 {% load humanize %}
 {% block content%}
+{% load icon %}
 
     
     <div class="row text-center pb-4 pt-2"> 
@@ -146,8 +147,8 @@
                                         
                                         <p class="text-truncate pt-2 " >{{job.description}}</p>
                                         <ul>
-                                            <li> <i class="fas fa-user-alt"></i>{{ job.buyer.name}}</li>
-                                            <li><i class="fas fa-map-marker-alt"></i>{{ job.buyer.location}}</li>
+                                            <li> {% icon "user" %}{{ job.buyer.name}}</li>
+                                            <li>{% icon "map-pin" %}{{ job.buyer.location}}</li>
                                             <li>{{ job.buyer.experience}}</li>
                                             <li>Rs. {{job.budget|intcomma}}</li>
                                         </ul>

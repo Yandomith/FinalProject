@@ -1,5 +1,8 @@
 {% extends 'jobs/_base.html' %}
 {% block content%}
+{% load icon %}
+
+{% load humanize %}
 <div class="row  p-3 mb-4 bg-body rounded ">
     <div >Featured####</div>
     <div class="col-md">Posted by {{ job.buyer.name}}</div> 
@@ -33,7 +36,7 @@
                     
                                 <ul>
                                     <li>Creative Agency</li>
-                                    <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
+                                    <li>{% icon "map-pin" %}</i>Athens, Greece</li>
                                     <li>$3500 - $4000</li>
                                 </ul>
                             </div>

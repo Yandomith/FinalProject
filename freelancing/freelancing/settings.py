@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'accounts',
 
     # extra lib
-    'fontawesome_5',
+    'django_feather',
     'bootstrap5'
 ]
 

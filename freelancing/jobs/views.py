@@ -7,44 +7,6 @@ from jobs.models import Seller, Buyer, Job,ApplyJob
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
-class JobListView(ListView):
-    model = Job
-    template_name = 'jobs/job_list.html'
-    context_object_name = 'jobs'
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['speciality_choices'] = Seller.SPECIALITY_CHOICES
-        context['location_choices'] = Buyer.LOCATION_CHOICES
-        return context
-    
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        if query:
-            return Job.objects.filter(title__icontains=query)  # Adjust fields as needed
-        return Job.objects.all()
-
-class JobDetailView(DetailView):
-    model = Job
-    template_name = 'jobs/job_detail.html'
-    # context_object_name = 'jobs'
-
-    def get_object(self, queryset=None):
-        code = self.kwargs.get("code")
-        try:
-            return Job.objects.get(code=code)
-        except Job.DoesNotExist:
-            raise Http404("Job not found")
-
-
-class SellerListView(ListView):
-    model = Seller
-
-class SellerDetailView(DetailView):
-    model = Seller
-
 class SellerCreateView(CreateView):
     model = Seller
     fields = ['name', 'tagline', 'speciality', 'bio', 'website']
@@ -68,6 +30,13 @@ def handle_login(request):
     if hasattr(request.user, 'seller') or hasattr(request.user, 'buyer'):
         return redirect(reverse_lazy('job-list'))
     return render(request, 'jobs/choose_account.html')
+
+
+class SellerListView(ListView):
+    model = Seller
+
+class SellerDetailView(DetailView):
+    model = Seller
 
 
 
@@ -111,6 +80,36 @@ class JobUpdateView(UpdateView):
     def form_valid(self, form):
         return super().form_valid(form)
     
+
+class JobListView(ListView):
+    model = Job
+    template_name = 'jobs/job_list.html'
+    context_object_name = 'jobs'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['speciality_choices'] = Seller.SPECIALITY_CHOICES
+        context['location_choices'] = Buyer.LOCATION_CHOICES
+        return context
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Job.objects.filter(title__icontains=query)  # Adjust fields as needed
+        return Job.objects.all()
+
+class JobDetailView(DetailView):
+    model = Job
+    template_name = 'jobs/job_detail.html'
+    # context_object_name = 'jobs'
+
+    def get_object(self, queryset=None):
+        code = self.kwargs.get("code")
+        try:
+            return Job.objects.get(code=code)
+        except Job.DoesNotExist:
+            raise Http404("Job not found")
 
 class ApplyJobCreateView(LoginRequiredMixin, CreateView):
     model = ApplyJob

@@ -45,7 +45,7 @@
           </div>
 
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="">{% icon "align-right" %}</span>
+            <span class="navbar-toggler-icon"></span>
           </button>
 
         </div>
@@ -58,34 +58,68 @@
           </div>
 
           <div class="offcanvas-body ">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %}Profile</a>
+            <ul class="navbar-nav justify-content-end flex-grow-1 px-2 gap-1 ">
+              <li class="nav-item  text-center">
+                <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %} {{ user.username}}</a>
+                <div class="text-center fw-lighter">
+                  {% if request.user.role %}
+                        {{ request.user.role }}
+                      {% else %}
+                          <a href="{% url 'handle-login' %}">
+                              <div >Set Your account Option here</div>
+                          </a>
+                  {% endif %}
+                </div>
               </li>
-              <li class="nav-item">
-                    {% if request.user.role %}
-                      {{ request.user.role }}
-                    {% else %}
-                        <a href="{% url 'handle-login' %}">
-                            <div class="text-center mt-4 fw-lighter">Set Your account Option here</div>
-                        </a>
-                    {% endif %}
-              </li>  
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"> {% icon "bar-chart-2" %} Ayalytics</a>
-              </li>  
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"> {% icon "package" %} Orders</a>
-              </li>  
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"> {% icon "settings" %} Account Settings</a>
-              </li> 
-              <li>
-              <form class="justify-content-center" action="{% url 'account_logout' %}" method="post">
-                {% csrf_token %}
-                {% icon "log-out" %}<button class="btn text-light " type="submit">Logout</button>
-              </form>
-              </li>
+              {% if request.user.role == "Seller"%}
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %}  Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"> {% icon "bar-chart-2" %}  Ayalytics</a>
+                  </li>  
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"> {% icon "coffee" %}  My Proposals</a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"> {% icon "package" %}  Orders</a>
+                  </li>  
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"> {% icon "settings" %}  Account Settings</a>
+                  </li> 
+                  <li>
+                  <form class="justify-content-center" action="{% url 'account_logout' %}" method="post">
+                    {% csrf_token %}
+                    {% icon "log-out" %}<button class="btn text-light " type="submit">Logout</button>
+                  </form>
+                  </li>
+                {% elif request.user.role == "Buyer"  %}
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %}  Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"> {% icon "bar-chart-2" %}  Ayalytics</a>
+                  </li>  
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{%  url 'job-create'%}"> {% icon "coffee" %}  Post a Request</a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"> {% icon "edit-2" %}  My Jobs</a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"> {% icon "package" %} My Orders</a>
+                  </li>  
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"> {% icon "settings" %}  Account Settings</a>
+                  </li> 
+                  <li>
+                  <form class="justify-content-center" action="{% url 'account_logout' %}" method="post">
+                    {% csrf_token %}
+                    {% icon "log-out" %}<button class="btn text-light " type="submit">Logout</button>
+                  </form>
+                  </li>
+              {% endif %}
+              
             </ul>
 
 

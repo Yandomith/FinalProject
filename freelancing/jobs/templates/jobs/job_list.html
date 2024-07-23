@@ -36,19 +36,21 @@
                         </div>
                         <!-- single two -->
                         <div class="single-listing">
-                           <div class="small-section-tittle2">
-                                 <h6>Job Location</h6>
-                           </div>
+                            <div class="small-section-tittle2">
+                                <h6>Job Location</h6>
+                            </div>
                             <!-- Select job items start -->
                             <div class="select-job-items2">
-                                <select name="select" class="form-select">
-                                    <option value="">Anywhere</option>
-                                    {% for location in location_choices %}
-                                        <option value="{{ location.0 }}">{{ location.1 }}</option>
-                                    {% endfor %}
-                                </select>
+                                <form method="GET" action="{% url 'job-list' %}">
+                                    <select name="location" class="form-select" onchange="this.form.submit()">
+                                        <option value="">Anywhere</option>
+                                        {% for location in location_choices %}
+                                            <option value="{{ location.0 }}" {% if request.GET.location == location.0 %}selected{% endif %}>{{ location.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </form>
                             </div>
-                        </div>
+                        </div>                        
                             <!--  Select job items End-->
                         <div class="single-listing">
                             <!-- select-Categories start -->

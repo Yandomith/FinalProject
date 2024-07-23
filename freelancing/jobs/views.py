@@ -103,9 +103,15 @@ class JobListView(ListView):
     
     def get_queryset(self):
         query = self.request.GET.get('q')
+        location = self.request.GET.get('location')
+
+        queryset = Job.objects.all()
         if query:
-            return Job.objects.filter(title__icontains=query).order_by('-timestamp')  # Adjust fields as needed
-        return Job.objects.all().order_by('-timestamp')
+            return Job.objects.filter(title__icontains=query)
+        if location:
+            queryset = queryset.filter(buyer__location=location)
+
+        return queryset.order_by('-timestamp')
 
 
 class JobDetailView(DetailView):

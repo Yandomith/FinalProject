@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponseForbidden
 from jobs.models import Seller, Buyer, Job,ApplyJob
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 
 class SellerCreateView(CreateView):
     model = Seller
@@ -37,7 +38,6 @@ class SellerListView(ListView):
 
 class SellerDetailView(DetailView):
     model = Seller
-
 
 
 class JobCreateView(CreateView):
@@ -85,19 +85,28 @@ class JobListView(ListView):
     model = Job
     template_name = 'jobs/job_list.html'
     context_object_name = 'jobs'
-    paginate_by = 10
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q')
+        if query:
+            job_queryset = Job.objects.filter(title__icontains=query)
+        else:
+            job_queryset = Job.objects.all()
+
+        context = super().get_context_data(**kwargs)
         context['speciality_choices'] = Seller.SPECIALITY_CHOICES
         context['location_choices'] = Buyer.LOCATION_CHOICES
+        context['total_jobs_count'] = job_queryset.count()
         return context
     
     def get_queryset(self):
         query = self.request.GET.get('q')
         if query:
-            return Job.objects.filter(title__icontains=query)  # Adjust fields as needed
-        return Job.objects.all()
+            return Job.objects.filter(title__icontains=query).order_by('-timestamp')  # Adjust fields as needed
+        return Job.objects.all().order_by('-timestamp')
+
 
 class JobDetailView(DetailView):
     model = Job

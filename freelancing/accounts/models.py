@@ -30,3 +30,10 @@ class CustomUser(AbstractUser):
         elif hasattr(user, 'buyer'):
             return user.buyer.name
         return user.username
+    
+    def profile_pic(user):
+        if hasattr(user, 'seller'):
+            return user.seller.profile_pic.url
+        elif hasattr(user, 'buyer'):
+            return user.buyer.profile_pic.url
+        return user.profile_pic

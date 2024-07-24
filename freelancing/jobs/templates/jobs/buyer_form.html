@@ -10,7 +10,7 @@
         <div class="col-md-auto px-5 pb-5 pt-4 border border-dark-subtle rounded-4 ">
             <div>
                 <div class="text-center display-5 pb-4">Create a Buyer Account</div>
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                    
                     {{ form|crispy}}

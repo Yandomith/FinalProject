@@ -14,5 +14,5 @@ urlpatterns = [
     path('job/update/<str:code>/',JobUpdateView.as_view(), name='job-update'),
     path('job/<str:code>/apply/', ApplyJobCreateView.as_view(), name='apply-job'),
 
-]  
+]
     

@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 
 class SellerCreateView(CreateView):
     model = Seller
-    fields = ['name', 'tagline', 'speciality', 'bio', 'website']
+    fields = ['name','profile_pic', 'tagline', 'speciality', 'bio', 'website']
     success_url = reverse_lazy('job-list')
 
     def form_valid(self, form):
@@ -19,7 +19,7 @@ class SellerCreateView(CreateView):
 
 class BuyerCreateView(CreateView):
     model = Buyer
-    fields = ['name', 'bio', 'location']
+    fields = ['name','profile_pic', 'bio', 'location']
     success_url = reverse_lazy('job-list')
 
     def form_valid(self, form):

@@ -59,7 +59,13 @@
 
           <div class="offcanvas-body ">
             <ul class="navbar-nav justify-content-end flex-grow-1 px-2 gap-1 ">
-              <li class="nav-item  text-center">
+              <li class="nav-item text-center">
+                <!-- {% if buyer.profile_pic %} -->
+                
+                <!-- {% endif %} -->
+                <div style="width: 100px; height: 100px;" class="overflow-hidden m-auto rounded-circle">
+                  <img src="{{ request.user.buyer.profile_pic.url }}" alt="" class="object-fit-cover w-100 ">
+                </div>
                 <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %} {{ user.username}}</a>
                 <div class="text-center fw-lighter">
                   {% if request.user.role %}

@@ -7,6 +7,7 @@ from jobs.models import Seller, Buyer, Job,ApplyJob
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from .forms import JobForm
 
 class SellerCreateView(CreateView):
     model = Seller
@@ -42,7 +43,7 @@ class SellerDetailView(DetailView):
 
 class JobCreateView(CreateView):
     model = Job
-    fields = ['title', 'budget', 'description', 'requirement']
+    form_class = JobForm
     success_url = reverse_lazy('job-list')
 
     def dispatch(self, request, *args, **kwargs):

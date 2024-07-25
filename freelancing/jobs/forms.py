@@ -7,7 +7,7 @@ class JobForm(forms.ModelForm):
         fields = ['title', 'budget', 'description', 'requirement','expertise_required']
         labels = {
             'title': 'Give your project brief a title',
-            'budget':"I'm looking to spend...",
+            'budget':"I'm looking to spend Rs.......",
             'description':"What are you looking to get done?"
 
 

@@ -8,6 +8,8 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from .forms import JobForm
+from .choices import SPECIALITY_CHOICES , LOCATION_CHOICES
+
 
 class SellerCreateView(CreateView):
     model = Seller
@@ -91,28 +93,34 @@ class JobListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get('q')
+        location = self.request.GET.get('location')
+
+        # Filter jobs based on query and location
         if query:
             job_queryset = Job.objects.filter(title__icontains=query)
+        elif location:
+            job_queryset = Job.objects.filter(buyer__location=location)
         else:
             job_queryset = Job.objects.all()
 
-        context = super().get_context_data(**kwargs)
-        context['speciality_choices'] = Seller.SPECIALITY_CHOICES
-        context['location_choices'] = Buyer.LOCATION_CHOICES
+        # Pass choices and job count to context
+        context['speciality_choices'] = SPECIALITY_CHOICES
+        context['location_choices'] = LOCATION_CHOICES
         context['total_jobs_count'] = job_queryset.count()
         return context
-    
+
     def get_queryset(self):
         query = self.request.GET.get('q')
         location = self.request.GET.get('location')
 
         queryset = Job.objects.all()
         if query:
-            return Job.objects.filter(title__icontains=query)
+            queryset = queryset.filter(title__icontains=query)
         if location:
             queryset = queryset.filter(buyer__location=location)
 
         return queryset.order_by('-timestamp')
+
 
 
 class JobDetailView(DetailView):

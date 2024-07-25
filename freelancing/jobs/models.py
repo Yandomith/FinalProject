@@ -1,7 +1,8 @@
 import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
-from .choices import SPECIALITY_CHOICES,LOCATION_CHOICES
+from django.core.validators import MinValueValidator
+from jobs.choices import SPECIALITY_CHOICES,LOCATION_CHOICES
 
 User = get_user_model()
 # Create your models here.
@@ -31,9 +32,9 @@ class Buyer(models.Model):
 class Job(models.Model):
     buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    budget = models.IntegerField()
+    budget = models.IntegerField(validators=[MinValueValidator(1000)])   
     description = models.TextField()
-    requirement = models.CharField(max_length=1000)
+    requirement = models.TextField()
     expertise_required = models.CharField(choices=SPECIALITY_CHOICES, max_length=50 )
     timestamp = models.DateTimeField(auto_now_add=True)
     code = models.CharField(max_length=10, unique=True, blank=True)

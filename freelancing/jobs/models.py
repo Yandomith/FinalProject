@@ -9,7 +9,7 @@ User = get_user_model()
 class Seller(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    profile_pic = models.ImageField(upload_to="profile/",blank= True)
+    profile_pic = models.ImageField(upload_to="profile/")
     speciality = models.CharField(choices=SPECIALITY_CHOICES, max_length=50)
     tagline = models.CharField(max_length=100)
     bio = models.TextField(blank=True)
@@ -22,7 +22,7 @@ class Buyer(models.Model):
   
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    profile_pic = models.ImageField(upload_to="profile/", blank= True)
+    profile_pic = models.ImageField(upload_to="profile/")
     bio = models.TextField(blank=True)
     location = models.CharField(choices=LOCATION_CHOICES, max_length=100)
 

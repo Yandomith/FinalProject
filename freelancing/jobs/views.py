@@ -122,7 +122,6 @@ class JobListView(ListView):
         return queryset.order_by('-timestamp')
 
 
-
 class JobDetailView(DetailView):
     model = Job
     template_name = 'jobs/job_detail.html'
@@ -134,6 +133,26 @@ class JobDetailView(DetailView):
             return Job.objects.get(code=code)
         except Job.DoesNotExist:
             raise Http404("Job not found")
+        
+def my_jobs(request):
+    try:
+        buyer = Buyer.objects.get(owner=request.user)
+        jobs = Job.objects.filter(buyer=buyer)
+    except Buyer.DoesNotExist:
+        jobs = []
+    return render(request, 'jobs/my_jobs.html', {'jobs': jobs})
+
+@login_required
+def delete_job(request, job_code):
+    job = get_object_or_404(Job, code=job_code)
+    buyer = Buyer.objects.get(owner=request.user)
+    
+    if job.buyer != buyer:
+        return HttpResponseForbidden("You are not allowed to delete this job.")
+
+    job.delete()
+    return redirect('my_jobs')
+
 
 class ApplyJobCreateView(LoginRequiredMixin, CreateView):
     model = ApplyJob

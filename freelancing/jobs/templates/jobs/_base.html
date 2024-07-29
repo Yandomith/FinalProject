@@ -65,7 +65,7 @@
                   <img src="{{ user.profile_pic }}" alt="" class="object-fit-cover w-100 ">
                 </div>
                 {% endif %}
-                <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %} {{ user.username}}</a>
+                <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %} {{ user.name}} </a>
                 <div class="text-center fw-lighter">
                   {% if request.user.role %}
                         {{ user.role }}
@@ -109,7 +109,7 @@
                     <a class="nav-link active" aria-current="page" href="{%  url 'job-create'%}"> {% icon "coffee" %}  Post a Request</a>
                   </li> 
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#"> {% icon "edit-2" %}  My Jobs</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'my_jobs' %}"> {% icon "edit-2" %}  My Jobs</a>
                   </li> 
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#"> {% icon "package" %} My Orders</a>

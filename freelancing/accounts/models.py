@@ -24,12 +24,12 @@ class CustomUser(AbstractUser):
         else:
             return None
         
-    def user_name(user):
+    def name(user):
         if hasattr(user, 'seller'):
             return user.seller.name
         elif hasattr(user, 'buyer'):
             return user.buyer.name
-        return user.username
+
     
     def profile_pic(user):
         if hasattr(user, 'seller'):

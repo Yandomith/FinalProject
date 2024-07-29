@@ -1,0 +1,12 @@
+{% extends 'jobs/_base.html' %}
+    {% block content %}
+    <h1>My Posted Jobs</h1>
+    <ul>
+        {% for job in jobs %}
+            <li>
+                {{ job.title }} - {{ job.timestamp }}
+                <a href="{% url 'delete_job' job.code %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endblock content %}

@@ -5,7 +5,9 @@
         {% for job in jobs %}
             <li>
                 {{ job.title }} - {{ job.timestamp }}
-                <a href="{% url 'delete_job' job.code %}">Delete</a>
+                <a href="{% url 'job-delete' job.code %}">Delete</a>
+                <a href="{% url 'job-update' job.code %}">update</a>
+
             </li>
         {% endfor %}
     </ul>

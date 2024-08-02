@@ -26,8 +26,6 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python -m venv env  # Create a virtual environment
-        source env/bin/activate  # Activate the virtual environment (Linux/Mac)
-        # For Windows, you might need to use the following line instead:
-        # .\env\Scripts\activate
+        python -m venv env 
+        .\env\Scripts\activate
         python manage.py test

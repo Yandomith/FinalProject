@@ -145,6 +145,11 @@
                                        
                                         <a href="{% url 'job-detail' job.code %}" class=" text-decoration-none">
                                             {{ job.title}}
+                                            {% if job.has_applied %}
+                                                <p>you have  applied </p>
+                                            {% else %}
+                                                <p>you have not applied</p>
+                                            {% endif %}
                                         </a>
                                         
                                         <p class="text-truncate pt-2 " >{{job.description}}</p>

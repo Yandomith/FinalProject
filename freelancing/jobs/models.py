@@ -35,9 +35,9 @@ class Job(models.Model):
     budget = models.IntegerField(validators=[MinValueValidator(1000)])   
     description = models.TextField()
     requirement = models.TextField()
-    expertise_required = models.CharField(choices=SPECIALITY_CHOICES, max_length=50 )
+    expertise_required = models.CharField(choices=SPECIALITY_CHOICES, max_length=50, default="None" )
     timestamp = models.DateTimeField(auto_now_add=True)
-    code = models.CharField(max_length=10, unique=True, blank=True)
+    code = models.CharField(max_length=10, unique=True, primary_key=True,)
 
     def save(self, *args, **kwargs):
         if not self.code:
@@ -57,6 +57,6 @@ class ApplyJob(models.Model):
         ('Pending', 'Pending')
     )
     user = models.ForeignKey(User , on_delete= models.CASCADE)
-    Job = models.ForeignKey(Job, on_delete= models.CASCADE)
+    Job = models.ForeignKey(Job, on_delete= models.CASCADE,to_field='code')
     timestamp= models.DateTimeField(auto_now_add=True)
     status= models.CharField(max_length=10, choices=status_choices)

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView,UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseForbidden
+from django.http import Http404, HttpResponseForbidden,HttpResponse
 from jobs.models import Seller, Buyer, Job,ApplyJob
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -106,8 +106,16 @@ class JobListView(ListView):
         # Pass choices and job count to context
         context['speciality_choices'] = SPECIALITY_CHOICES
         context['location_choices'] = LOCATION_CHOICES
-        context['total_jobs_count'] = job_queryset.count()
+
+        applied_jobs = ApplyJob.objects.filter(user=self.request.user).values_list('Job__code', flat=True)
+
+        # Add application status to each job
+        for job in job_queryset:
+            job.has_applied = job.code in applied_jobs
+        
+        context['jobs'] = job_queryset  # Update context with filtered job queryset
         return context
+
 
     def get_queryset(self):
         query = self.request.GET.get('q')
@@ -128,6 +136,7 @@ class JobDetailView(DetailView):
     # context_object_name = 'jobs'
 
     def get_object(self, queryset=None):
+       
         code = self.kwargs.get("code")
         try:
             return Job.objects.get(code=code)
@@ -167,8 +176,10 @@ class ApplyJobCreateView(LoginRequiredMixin, CreateView):
         # Check if user is a seller
         if not hasattr(request.user, 'seller'):
             return HttpResponseForbidden("You must be a seller to apply for jobs.")
-
-        # Get the job based on the code from the URL
+        
+        if ApplyJob.objects.filter(user=request.user, Job = kwargs['code']).exists():
+           return HttpResponse("you have applied to this job already")
+        
         self.job = get_object_or_404(Job, code=kwargs['code'])
 
         return super().dispatch(request, *args, **kwargs)

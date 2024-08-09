@@ -50,7 +50,7 @@
                             <div class="small-section-tittle">
                                 <h4>Job Description</h4>
                             </div>
-                            <p>It is a long established fact that a reader will beff distracted by vbthe creadable content of a page when looking at its layout. The pointf of using Lorem Ipsum is that it has ahf mcore or-lgess normal distribution of letters, as opposed to using, Content here content here making it look like readable.</p>
+                            <p>{{job.description}}</p>
                         </div>
                         <div class="post-details2  mb-5">
                              <!-- Small Section Tittle -->
@@ -74,30 +74,16 @@
                            <h4>Job Overview</h4>
                        </div>
                       <ul>
-                          <li>Posted date : <span>12 Aug 2019</span></li>
-                          <li>Location : <span>New York</span></li>
-                          <li>Vacancy : <span>02</span></li>
-                          <li>Job nature : <span>Full time</span></li>
-                          <li>Salary :  <span>$7,800 yearly</span></li>
+                          <li>Posted date : <span>{{job.timestamp}}</span></li>
+                          <li>Location : <span>{{job.buyer.location}}</span></li>
+                          <li>Budget :  <span>Rs. {{job.budget}}</span></li>
                           <li>Application date : <span>12 Sep 2020</span></li>
                       </ul>
                      <div class="apply-btn2">
                         <a href="{% url 'apply-job' code=job.code %}" class="btn">Apply Now</a>
                     </div>
                    </div>
-                    <div class="post-details4  mb-5">
-                        <!-- Small Section Tittle -->
-                       <div class="small-section-tittle">
-                           <h4>Company Information</h4>
-                       </div>
-                          <span>Colorlib</span>
-                          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                        <ul>
-                            <li>Name: <span>Colorlib </span></li>
-                            <li>Web : <span> colorlib.com</span></li>
-                            <li>Email: <span>carrier.colorlib@gmail.com</span></li>
-                        </ul>
-                   </div>
+                    
                 </div>
             </div>
         </div>

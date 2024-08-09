@@ -7,6 +7,7 @@
                 {{ job.title }} - {{ job.timestamp }}
                 <a href="{% url 'job-delete' job.code %}">Delete</a>
                 <a href="{% url 'job-update' job.code %}">update</a>
+                {{job.applyjob_set.all.count}}
 
             </li>
         {% endfor %}

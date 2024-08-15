@@ -86,11 +86,12 @@ class JobUpdateView(UpdateView):
         return super().form_valid(form)
     
 
-class JobListView(ListView):
+class JobListView(LoginRequiredMixin,ListView):
     model = Job
     template_name = 'jobs/job_list.html'
     context_object_name = 'jobs'
     paginate_by = 5
+    login_url = 'handle-login'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

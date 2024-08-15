@@ -13,9 +13,9 @@
             <h2 data-aos="fade-up">Connect, Bid, Succeed.</h2>
             <p data-aos="fade-up" data-aos-delay="100">Wide Chronicle Jobs offers a unique platform where buyers can post job opportunities, and sellers can bid on them. We strive to create a seamless experience that empowers users to connect effectively. Our focus is on facilitating interactions without unnecessary features, ensuring that the process remains straightforward and efficient. With our platform, users can expect a reliable and user-friendly environment to navigate job postings and bidding seamlessly.</p>
 
-            <form action="#" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up" data-aos-delay="200">
-              <input type="text" class="form-control" placeholder="Your ZIP code or City. e.g. New York">
-              <button type="submit" class="btn btn-primary">Search</button>
+            <form class="form-inline my-2 my-lg-0 gap-2 d-flex" method="get" action="{% url 'job-list' %}">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search jobs..." name="q" value="{{ request.GET.q }}">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
 
             <div class="row gy-4" data-aos="fade-up" data-aos-delay="300">

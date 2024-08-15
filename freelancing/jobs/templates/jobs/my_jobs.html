@@ -2,6 +2,7 @@
     {% block content %}
     <h1>My Posted Jobs</h1>
     <ul>
+        <div class="container ">
         {% for job in jobs %}
             <li>
                 {{ job.title }}  <br> Posted - {{ job.timestamp }}
@@ -12,4 +13,5 @@
             </li>
         {% endfor %}
     </ul>
+    </div>
     {% endblock content %}

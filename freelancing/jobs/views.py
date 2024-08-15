@@ -35,6 +35,8 @@ def handle_login(request):
         return redirect(reverse_lazy('job-list'))
     return render(request, 'jobs/choose_account.html')
 
+def home (request):
+    return render (request, 'jobs/home.html')
 
 class SellerListView(ListView):
     model = Seller

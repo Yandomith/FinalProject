@@ -4,11 +4,11 @@
     <ul>
         {% for job in jobs %}
             <li>
-                {{ job.title }} - {{ job.timestamp }}
-                <a href="{% url 'job-delete' job.code %}">Delete</a>
-                <a href="{% url 'job-update' job.code %}">update</a>
-                {{job.applyjob_set.all.count}}
-
+                {{ job.title }}  <br> Posted - {{ job.timestamp }}
+                <a href="{% url 'job-delete' job.code %}">Delete</a><br>
+                <a href="{% url 'job-update' job.code %}">update</a> <br>
+                {{job.applyjob_set.all.count}} have Applied to this job.
+                <br><br>
             </li>
         {% endfor %}
     </ul>

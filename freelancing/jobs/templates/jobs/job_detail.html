@@ -3,7 +3,7 @@
 {% load icon %}
 
 {% load humanize %}
-<div class="row  p-3 mb-4 bg-body rounded ">
+<!-- <div class="row  p-3 mb-4 bg-body rounded ">
     <div >Featured####</div>
     <div class="col-md">Posted by {{ job.buyer.name}}</div> 
     <div class="row ">
@@ -17,7 +17,7 @@
       
     </div>
 
-</div>
+</div> -->
 
 <main>
 
@@ -80,7 +80,7 @@
                           <li>Budget :  <span>Rs. {{job.budget}}</span></li>
                           <li>Application date : <span>12 Sep 2020</span></li>
                       </ul>
-                     <div class="apply-btn2">
+                     <div class="items-link apply-btn2">
                         <a href="{% url 'apply-job' code=job.code %}" class="btn">Apply Now</a>
                     </div>
                    </div>

@@ -5,7 +5,9 @@
         <div class="container ">
         {% for job in jobs %}
             <li>
-                {{ job.title }}  <br> Posted - {{ job.timestamp }}
+                {{ job.title }}  <br> Posted - {{ job.timestamp }} <br><br>
+                <a href="{% url 'all_applicants' job.code %}">View all Bids </a>
+                <br><br>
                 <a href="{% url 'job-delete' job.code %}">Delete</a><br>
                 <a href="{% url 'job-update' job.code %}">update</a> <br>
                 {{job.applyjob_set.all.count}} have Applied to this job.

@@ -1,0 +1,10 @@
+<h1>Applicants for Job: {{ job.title }}</h1>
+
+<h2>Applicants:</h2>
+<ul>
+    {% for applicant in applicants %}
+        <li>{{ applicant.user.username }} - {{ applicant.priceRange }} - {{applicant.coverLetter}}</li>
+    {% empty %}
+        <li>No applicants yet.</li>
+    {% endfor %}
+</ul>

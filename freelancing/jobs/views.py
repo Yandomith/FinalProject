@@ -168,7 +168,7 @@ def delete_job(request, job_code):
 
 class ApplyJobCreateView(LoginRequiredMixin, CreateView):
     model = ApplyJob
-    fields = []  # Adjust fields as necessary
+    fields = ['coverLetter','priceRange']  # Adjust fields as necessary
     template_name = 'jobs/applyjob_form.html'
     success_url = reverse_lazy('job-list')  # Adjust as necessary
 
@@ -192,3 +192,11 @@ class ApplyJobCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         form.instance.Job = self.job
         return super().form_valid(form) 
+    
+
+def all_applicants(request, *args, **kwargs):
+    code = kwargs.get('code')
+    job = get_object_or_404(Job, code=code)
+    applicants = job.applyjob_set.all()
+    context = {'job': job, 'applicants': applicants}
+    return render(request, 'jobs/all_applicants.html', context)

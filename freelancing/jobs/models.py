@@ -58,5 +58,7 @@ class ApplyJob(models.Model):
     )
     user = models.ForeignKey(User , on_delete= models.CASCADE)
     Job = models.ForeignKey(Job, on_delete= models.CASCADE,to_field='code')
+    coverLetter = models.TextField(max_length=500, blank=False)
+    priceRange=models.PositiveIntegerField(max_length=5, blank=False )
     timestamp= models.DateTimeField(auto_now_add=True)
     status= models.CharField(max_length=10, choices=status_choices)

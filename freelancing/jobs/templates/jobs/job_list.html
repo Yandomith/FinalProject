@@ -141,15 +141,16 @@
                         {% for job in jobs %}
                         <div class="row">
                             <div class="single-job-items  ">
+                                {% if job.has_applied %}
+                                <p class="text-end">you have apppled to this job already </p>
+                            {% else %}
+                               
+                           {% endif %}
                                 <div class="job-tittle col-8 float-start text-wrap">
                                        
                                         <a href="{% url 'job-detail' job.code %}" class=" text-decoration-none">
                                             {{ job.title}}
-                                            {% if job.has_applied %}
-                                                <p>you have  applied </p>
-                                            {% else %}
-                                                <p>you have not applied</p>
-                                            {% endif %}
+                                           
                                         </a>
                                         
                                         <p class="text-truncate pt-2 " >{{job.description}}</p>

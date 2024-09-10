@@ -19,7 +19,11 @@
     <!-- navbar start -->
     <nav class="navbar navbar-dark bg-dark text-light ">
       <div class="container-fluid  header  px-3">
-        <a class="navbar-brand logo" href="{% url 'index'%}"><img src="../../static/img/logo-no-background.png" alt=""></a>
+        <a class="navbar-brand logo" href="{% url 'index'%}">
+          <!-- <img src="../../static/img/logo-no-background.png" alt="">    image logo rakhne vayae on garnee  -->
+
+          Wide Chronicle
+        </a>
         
         {% if user.is_authenticated %}
         <!-- canvas  -->
@@ -51,11 +55,20 @@
         <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
           <div class=" header offcanvas-header">
-            <h5 class="logo offcanvas-title text-light" id="offcanvasDarkNavbarLabel"><img src="../../static/img/logo-no-background.png" alt=""></h5>
+            <h5 class="logo offcanvas-title text-light" id="offcanvasDarkNavbarLabel">
+              <!-- 
+              Image logo Off 
+
+              <img src="../../static/img/logo-no-background.png" alt=""> -->
+
+              
+              Wide Chronicle
+
+            </h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
-          <div class="offcanvas-body ">
+        <div class="offcanvas-body ">
             <ul class="navbar-nav justify-content-end flex-grow-1 px-2 gap-1 ">
               <li class="nav-item text-center">
                 {% if request.user.profile_pic %}

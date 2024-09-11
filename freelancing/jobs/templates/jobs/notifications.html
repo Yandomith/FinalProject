@@ -1,0 +1,15 @@
+{% extends 'jobs/_base.html' %}
+
+{% block content %}
+<h1>Notifications</h1>
+<ul>
+    {% for notification in notifications %}
+        <li>
+            <p>{{ notification.message }}</p>
+            <small>{{ notification.timestamp }}</small>
+        </li>
+    {% empty %}
+        <li>No new notifications.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -187,7 +187,7 @@
 
        .card{
 
-        width: 380px;
+        width: 400px;
         border: none;
         border-radius: 15px;
         padding: 8px;
@@ -198,7 +198,7 @@
 
        .upper{
 
-        height: 100px;
+        height: 300px;
 
        }
 
@@ -216,7 +216,7 @@
 
        .profile img{
 
-        
+
         height: 80px;
         width: 80px;
         margin-top:2px;

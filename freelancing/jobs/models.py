@@ -63,3 +63,15 @@ class ApplyJob(models.Model):
     priceRange=models.PositiveIntegerField( blank=False )
     timestamp= models.DateTimeField(auto_now_add=True)
     status= models.CharField(max_length=10, choices=status_choices)
+
+
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Message for {self.user.username} at {self.timestamp}"

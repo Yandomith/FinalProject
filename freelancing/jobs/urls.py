@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,handle_login,JobDetailView,JobCreateView,JobListView,JobUpdateView,ApplyJobCreateView,my_jobs,delete_job, home,all_applicants,profile_edit
+from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,handle_login,JobDetailView,JobCreateView,JobListView,JobUpdateView,ApplyJobCreateView,my_jobs,delete_job, home,all_applicants,profile_edit , notifications_view, mark_notifications_as_read
 
 
 
@@ -22,5 +22,9 @@ urlpatterns = [
     path('delete-job/<str:job_code>/', delete_job, name='job-delete'),
     path('applicants/<str:code>', all_applicants, name='all_applicants'),
 
+
+
+    path('notifications/', notifications_view, name='notifications'),
+    path('notifications/mark-as-read/', mark_notifications_as_read,name='mark-notifications-as-read'),
 ]
     

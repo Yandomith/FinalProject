@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView,UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseForbidden,HttpResponse
-from jobs.models import Seller, Buyer, Job,ApplyJob
+from jobs.models import Seller, Buyer, Job,ApplyJob,Notification
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
@@ -18,8 +18,12 @@ class SellerCreateView(CreateView):
     fields = ['name','profile_pic', 'tagline', 'speciality', 'bio', 'website']
     success_url = reverse_lazy('account_login')
 
-    def form_valid(self, form):
+
+    def form_valid(self, form,):
+        create_notification(self.request.user, "You have logged in as a Seller !")
+
         form.instance.owner = self.request.user
+
         return super().form_valid(form)
 
 class BuyerCreateView(CreateView):
@@ -27,7 +31,10 @@ class BuyerCreateView(CreateView):
     fields = ['name','profile_pic', 'bio', 'location']
     success_url = reverse_lazy('account_login')
 
-    def form_valid(self, form):
+
+    def form_valid(self, form, ):
+        create_notification(self.request.user, "You Deleted a Job !")
+
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
@@ -177,6 +184,7 @@ def delete_job(request, job_code):
         return HttpResponseForbidden("You are not allowed to delete this job.")
 
     job.delete()
+    create_notification(request.user, "You Deleted a Job !")
     return redirect('my_jobs')
 
 
@@ -218,3 +226,17 @@ def all_applicants(request, *args, **kwargs):
 
 def profile_edit (request):
     return render (request, 'jobs/profile-edit.html')
+
+
+
+def create_notification(user, message):
+    Notification.objects.create(user=user, message=message)
+
+def notifications_view(request):
+    notifications = Notification.objects.filter(user=request.user, is_read=False)
+    context = {'notifications': notifications}
+    return render(request, 'jobs/notifications.html', context)
+
+def mark_notifications_as_read(request):
+    notifications = Notification.objects.filter(user=request.user, is_read=False)
+    notifications.update(is_read=True)

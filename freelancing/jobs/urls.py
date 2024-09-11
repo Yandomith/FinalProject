@@ -1,10 +1,13 @@
 from django.urls import path
-from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,handle_login,JobDetailView,JobCreateView,JobListView,JobUpdateView,ApplyJobCreateView,my_jobs,delete_job, home,all_applicants
+from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,handle_login,JobDetailView,JobCreateView,JobListView,JobUpdateView,ApplyJobCreateView,my_jobs,delete_job, home,all_applicants,profile_edit
 
 
 
 urlpatterns = [
-     path("", home, name="index"),
+    path("", home, name="index"),
+    path("profile", profile_edit, name="editprofile"),
+
+
     path('sellers',SellerListView.as_view(), name='seller-list'),
     path('account-setup',handle_login, name='handle-login'),
     path('seller/<int:pk>/', SellerDetailView.as_view(), name= 'seller-detail'),

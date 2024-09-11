@@ -5,6 +5,7 @@ from django.core.validators import MinValueValidator
 from jobs.choices import SPECIALITY_CHOICES,LOCATION_CHOICES
 
 User = get_user_model()
+
 # Create your models here.
 class Seller(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -20,7 +21,7 @@ class Seller(models.Model):
 
 class Buyer(models.Model):
   
-    owner = models.OneToOneField(User, on_delete=models.CASCADE)
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, )
     name = models.CharField(max_length=50)
     profile_pic = models.ImageField(upload_to="profile/")
     bio = models.TextField(blank=True)
@@ -56,9 +57,9 @@ class ApplyJob(models.Model):
         ('Rejected', 'Rejected'),
         ('Pending', 'Pending')
     )
-    user = models.ForeignKey(User , on_delete= models.CASCADE)
+    user = models.ForeignKey(User , on_delete= models.CASCADE )
     Job = models.ForeignKey(Job, on_delete= models.CASCADE,to_field='code')
     coverLetter = models.TextField(max_length=500, blank=False)
-    priceRange=models.PositiveIntegerField(max_length=5, blank=False )
+    priceRange=models.PositiveIntegerField( blank=False )
     timestamp= models.DateTimeField(auto_now_add=True)
     status= models.CharField(max_length=10, choices=status_choices)

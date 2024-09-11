@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView,UpdateView
+
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseForbidden,HttpResponse
@@ -9,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from .forms import JobForm
 from .choices import SPECIALITY_CHOICES , LOCATION_CHOICES
+
 
 
 class SellerCreateView(CreateView):
@@ -38,12 +40,24 @@ def handle_login(request):
 def home (request):
     return render (request, 'jobs/home.html')
 
+
+
 class SellerListView(ListView):
     model = Seller
 
+
 class SellerDetailView(DetailView):
     model = Seller
+    template_name = 'jobs/seller_detail.html'
+    context_object_name = 'seller'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        seller = self.object
+        
+        context['owner_id'] = seller.owner.id
+        return context
+    
 
 class JobCreateView(CreateView):
     model = Job
@@ -200,3 +214,7 @@ def all_applicants(request, *args, **kwargs):
     applicants = job.applyjob_set.all()
     context = {'job': job, 'applicants': applicants}
     return render(request, 'jobs/all_applicants.html', context)
+
+
+def profile_edit (request):
+    return render (request, 'jobs/profile-edit.html')

@@ -18,25 +18,23 @@ class SellerCreateView(CreateView):
     fields = ['name','profile_pic', 'tagline', 'speciality', 'bio', 'website']
     success_url = reverse_lazy('account_login')
 
-
     def form_valid(self, form,):
         create_notification(self.request.user, "You have logged in as a Seller !")
 
         form.instance.owner = self.request.user
-
         return super().form_valid(form)
+
 
 class BuyerCreateView(CreateView):
     model = Buyer
     fields = ['name','profile_pic', 'bio', 'location']
     success_url = reverse_lazy('account_login')
 
-
     def form_valid(self, form, ):
         create_notification(self.request.user, "You Deleted a Job !")
-
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
 
 @login_required
 def handle_login(request):
@@ -79,6 +77,7 @@ class JobCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
+        create_notification(self.request.user, f" You have Created the job")
         form.instance.buyer = self.request.user.buyer
         return super().form_valid(form)
 
@@ -103,7 +102,11 @@ class JobUpdateView(UpdateView):
     def get_object(self, queryset=None):
         # Fetch the Job object using the unique code
         return get_object_or_404(Job, code=self.kwargs['code'])
+    
     def form_valid(self, form):
+        job = Job.objects.get(code=self.kwargs['code'])
+        create_notification(self.request.user, f" You have updated the job: {job.title}")
+
         return super().form_valid(form)
     
 
@@ -210,7 +213,11 @@ class ApplyJobCreateView(LoginRequiredMixin, CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        # Set the job and user fields
+        job = Job.objects.get(code=self.kwargs['code'])
+    
+        create_notification(job.buyer.owner, f"New application for your job: {job.title}")
+        create_notification(self.request.user, f" You have applied for the job: {job.title}")
+
         form.instance.user = self.request.user
         form.instance.Job = self.job
         return super().form_valid(form) 
@@ -233,10 +240,15 @@ def create_notification(user, message):
     Notification.objects.create(user=user, message=message)
 
 def notifications_view(request):
-    notifications = Notification.objects.filter(user=request.user, is_read=False)
+    notifications = Notification.objects.filter(user=request.user,)
     context = {'notifications': notifications}
+    if notifications:
+        mark_notifications_as_read(request)
+
     return render(request, 'jobs/notifications.html', context)
 
 def mark_notifications_as_read(request):
     notifications = Notification.objects.filter(user=request.user, is_read=False)
     notifications.update(is_read=True)
+
+

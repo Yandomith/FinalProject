@@ -42,8 +42,14 @@
               <i class="position-relative "> {% icon "mail" %}<span class="position-absolute top-0 end-10 translate-middle-y badge rounded-circle bg-danger p-1 "><span class="visually-hidden">unread messages</span></span></i>
             </a>
             <a href="{% url 'notifications' %}" class="pt-2 text-light">
-              <i class=" position-relative "> {% icon "bell" %}<span class="position-absolute top-0 end-10 translate-middle-y badge rounded-circle bg-danger p-1 "><span class="visually-hidden">unread messages</span></span></i>
+              <i class=" position-relative "> {% icon "bell" %} 
+                
+                {% if unread_notifications_count > 0 %}
+                <span class="position-absolute top-0 end-10 translate-middle-y badge rounded-circle bg-danger p-1 "><span class="visually-hidden">unread messages</span> </span>
+              {% endif %}
+             </i>
             </a>
+          
           </div>
 
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">

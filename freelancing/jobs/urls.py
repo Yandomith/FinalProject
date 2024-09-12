@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,handle_login,JobDetailView,JobCreateView,JobListView,JobUpdateView,ApplyJobCreateView,my_jobs,delete_job, home,all_applicants,profile_edit , notifications_view, mark_notifications_as_read
+from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,BuyerDetailView,handle_login,JobDetailView,JobCreateView,JobListView,JobUpdateView,ApplyJobCreateView,my_jobs,delete_job, home,all_applicants,profile_edit , notifications_view, mark_notifications_as_read 
+
 
 
 
@@ -11,6 +12,8 @@ urlpatterns = [
     path('sellers',SellerListView.as_view(), name='seller-list'),
     path('account-setup',handle_login, name='handle-login'),
     path('seller/<int:pk>/', SellerDetailView.as_view(), name= 'seller-detail'),
+    path('buyer/<int:pk>/', BuyerDetailView.as_view(), name= 'buyer-detail'),
+
     path('seller/create/', SellerCreateView.as_view(), name='seller-create'),
     path('buyer/create/', BuyerCreateView.as_view(), name='buyer-create'),
     path('job/create/', JobCreateView.as_view(), name='job-create'),

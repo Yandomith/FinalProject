@@ -82,7 +82,7 @@
                   <img src="{{ user.profile_pic }}" alt="" class="object-fit-cover w-100 ">
                 </div>
                 {% endif %}
-                <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %} {{ user.name}} </a>
+                {% icon "user" %} {{ user.name}}
                 <div class="text-center fw-lighter">
                   {% if request.user.role %}
                         {{ user.role }}
@@ -95,7 +95,7 @@
               </li>
               {% if request.user.role == "Seller"%}
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %}  Profile</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'seller-detail' user.seller.pk %}"> {% icon "user" %}  Profile</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#"> {% icon "bar-chart-2" %}  Ayalytics</a>
@@ -117,7 +117,7 @@
                   </li>
                 {% elif request.user.role == "Buyer"  %}
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#"> {% icon "user" %}  Profile</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'buyer-detail'  user.buyer.pk %}"> {% icon "user" %}  Profile</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#"> {% icon "bar-chart-2" %}  Ayalytics</a>

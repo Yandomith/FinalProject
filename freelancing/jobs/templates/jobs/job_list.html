@@ -155,7 +155,7 @@
                                         
                                         <p class="text-truncate pt-2 " >{{job.description}}</p>
                                         <ul>
-                                            <li> {% icon "user" %}{{ job.buyer.name}}</li>
+                                            <li> {% icon "user" %} <a href="{% url 'buyer-detail' job.buyer.id %}">{{ job.buyer.name}} </a> </li>
                                             <li>{% icon "map-pin" %}{{ job.buyer.location}}</li>
                                             <li>{{ job.buyer.experience}}</li>
                                             <li>Rs. {{job.budget|intcomma}}</li>

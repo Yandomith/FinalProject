@@ -35,6 +35,18 @@ class BuyerCreateView(CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+class BuyerDetailView(DetailView):
+    model = Buyer
+    template_name = 'jobs/buyer_detail.html'
+    context_object_name = 'buyer'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        buyer = self.object
+        
+        context['owner_id'] = buyer.owner.id
+        return context
+    
 
 @login_required
 def handle_login(request):
@@ -233,8 +245,6 @@ def all_applicants(request, *args, **kwargs):
 
 def profile_edit (request):
     return render (request, 'jobs/profile-edit.html')
-
-
 
 def create_notification(user, message):
     Notification.objects.create(user=user, message=message)

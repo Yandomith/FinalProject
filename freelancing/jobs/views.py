@@ -209,7 +209,6 @@ class JobListView(LoginRequiredMixin,ListView):
         query = self.request.GET.get('q')
         location = self.request.GET.get('location')
 
-        # Filter jobs based on query and location
         if query:
             job_queryset = Job.objects.filter(title__icontains=query)
         elif location:
@@ -217,17 +216,16 @@ class JobListView(LoginRequiredMixin,ListView):
         else:
             job_queryset = Job.objects.all()
 
-        # Pass choices and job count to context
         context['speciality_choices'] = SPECIALITY_CHOICES
         context['location_choices'] = LOCATION_CHOICES
 
         applied_jobs = ApplyJob.objects.filter(user=self.request.user).values_list('Job__code', flat=True)
 
-        # Add application status to each job
+
         for job in job_queryset:
             job.has_applied = job.code in applied_jobs
         
-        context['jobs'] = job_queryset  # Update context with filtered job queryset
+        context['jobs'] = job_queryset 
         return context
 
 

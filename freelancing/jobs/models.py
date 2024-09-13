@@ -50,6 +50,9 @@ class Job(models.Model):
 
     def __str__(self):
         return f"{self.id} | {self.title}"
+    
+    class Meta:
+        ordering = ['-timestamp'] 
 
 class ApplyJob(models.Model):
     status_choices=(
@@ -75,3 +78,5 @@ class Notification(models.Model):
 
     def __str__(self):
         return f"Message for {self.user.username} at {self.timestamp}"
+    class Meta:
+        ordering = ['-timestamp'] 

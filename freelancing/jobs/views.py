@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView,UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseForbidden,HttpResponse
-from jobs.models import Seller, Buyer, Job,ApplyJob,Notification
+from jobs.models import Seller, Buyer, Job,ApplyJob,Notification, User
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
@@ -35,18 +35,7 @@ class BuyerCreateView(CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
-class BuyerDetailView(DetailView):
-    model = Buyer
-    template_name = 'jobs/buyer_detail.html'
-    context_object_name = 'buyer'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        buyer = self.object
-        
-        context['owner_id'] = buyer.owner.id
-        return context
-    
 
 @login_required
 def handle_login(request):
@@ -63,6 +52,13 @@ class SellerListView(ListView):
     model = Seller
 
 
+
+
+
+
+
+
+
 class SellerDetailView(DetailView):
     model = Seller
     template_name = 'jobs/seller_detail.html'
@@ -71,10 +67,87 @@ class SellerDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         seller = self.object
-        
+        try:
+            proposals = ApplyJob.objects.filter(user=seller.owner.id)
+        except ApplyJob.DoesNotExist:
+            proposals =[]
+
         context['owner_id'] = seller.owner.id
+        context['proposals'] = proposals
+        return context
+
+class BuyerDetailView(DetailView):
+    model = Buyer
+    template_name = 'jobs/buyer_detail.html'
+    context_object_name = 'buyer'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        buyer = self.object
+
+        try:
+            jobs = Job.objects.filter(buyer=buyer)
+        except Job.DoesNotExist:
+            jobs = []
+
+        context['owner_id'] = buyer.owner.id
+        context['jobs'] = jobs 
         return context
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class BuyerProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = Buyer
+    template_name = 'jobs/profile_edit.html'
+    success_url = reverse_lazy('job-list')
+    fields = ['name','profile_pic', 'bio', 'location' ]
+
+    def get_object(self, queryset=None):
+        create_notification(self.request.user, "You have updated your profile !")
+        return get_object_or_404(Buyer, pk=self.kwargs.get('pk'))
+
+class SellerProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = Seller
+    template_name = 'jobs/profile_edit.html'
+    success_url = reverse_lazy('job-list')
+    fields = ['name','profile_pic','tagline','bio','website']
+
+    def get_object(self, queryset=None):
+        create_notification(self.request.user, "You have updated your profile !")
+        return get_object_or_404(Seller, pk=self.kwargs.get('pk'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class JobCreateView(CreateView):
     model = Job
@@ -102,15 +175,17 @@ class JobUpdateView(UpdateView):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             raise PermissionDenied
+        
         if request.user.role() != 'Buyer':
             return HttpResponseForbidden("You do not have permission to post jobs.")
         
         job = get_object_or_404(Job, code=kwargs['code'])
+
         if job.buyer != request.user.buyer:
             return HttpResponseForbidden("You do not have permission to edit this job.")
-        
         return super().dispatch(request, *args, **kwargs)
     
+
     def get_object(self, queryset=None):
         # Fetch the Job object using the unique code
         return get_object_or_404(Job, code=self.kwargs['code'])
@@ -182,6 +257,23 @@ class JobDetailView(DetailView):
         except Job.DoesNotExist:
             raise Http404("Job not found")
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def my_jobs(request):
     try:
         buyer = Buyer.objects.get(owner=request.user)
@@ -189,6 +281,32 @@ def my_jobs(request):
     except Buyer.DoesNotExist:
         jobs = []
     return render(request, 'jobs/my_jobs.html', {'jobs': jobs})
+
+
+
+
+class my_proposalsListView(ListView):
+    model = ApplyJob
+    template_name = 'jobs/proposals.html'
+    context_object_name = 'proposals'
+
+    def get_queryset(self):
+        seller = self.request.user.id
+        return ApplyJob.objects.filter(user=seller)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @login_required
 def delete_job(request, job_code):
@@ -243,9 +361,10 @@ def all_applicants(request, *args, **kwargs):
     return render(request, 'jobs/all_applicants.html', context)
 
 
-def profile_edit (request):
-    return render (request, 'jobs/profile-edit.html')
 
+
+
+    
 def create_notification(user, message):
     Notification.objects.create(user=user, message=message)
 

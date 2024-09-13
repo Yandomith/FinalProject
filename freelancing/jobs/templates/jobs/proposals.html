@@ -1,0 +1,21 @@
+{% extends 'jobs/_base.html' %}
+    {% block content %}
+    <h1>My Proposals</h1>
+    <ul>
+        <div class="container ">
+     
+            <ul>
+                {% for proposal in proposals %}
+                    <li>
+                        Job: {{ proposal.Job.title }} <br>
+                        Description: {{ proposal.priceRange }} <br>
+                        Sent at: {{ proposal.timestamp }}
+                    </li>
+                {% empty %}
+                    <li>No proposals sent yet.</li>
+                {% endfor %}
+            </ul>
+
+    </ul>
+    </div>
+    {% endblock content %}

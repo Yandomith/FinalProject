@@ -1,12 +1,13 @@
 from django.urls import path
-from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,BuyerDetailView,handle_login,JobDetailView,JobCreateView,JobListView,JobUpdateView,ApplyJobCreateView,my_jobs,delete_job, home,all_applicants,profile_edit , notifications_view, mark_notifications_as_read 
+from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,BuyerDetailView,handle_login,JobDetailView,JobCreateView,JobListView,JobUpdateView,ApplyJobCreateView,my_jobs,delete_job, home,all_applicants, notifications_view, mark_notifications_as_read ,SellerProfileUpdateView,BuyerProfileUpdateView, my_proposalsListView
 
 
 
 
 urlpatterns = [
     path("", home, name="index"),
-    path("profile", profile_edit, name="editprofile"),
+     path('seller/profile/<int:pk>/', SellerProfileUpdateView.as_view(), name='seller_editprofile'),
+    path('buyer/profile/<int:pk>/', BuyerProfileUpdateView.as_view(), name='buyer_editprofile'),
 
 
     path('sellers',SellerListView.as_view(), name='seller-list'),
@@ -22,6 +23,8 @@ urlpatterns = [
     path('job/update/<str:code>/',JobUpdateView.as_view(), name='job-update'),
     path('job/<str:code>/apply/', ApplyJobCreateView.as_view(), name='apply-job'),
     path('my-jobs/', my_jobs, name='my_jobs'),
+    path('my-proposals/', my_proposalsListView.as_view(), name='my-proposals'),
+
     path('delete-job/<str:job_code>/', delete_job, name='job-delete'),
     path('applicants/<str:code>', all_applicants, name='all_applicants'),
 

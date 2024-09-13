@@ -27,19 +27,27 @@
                 <span class="text-muted d-block">{{ seller.tagline }}</span>
                 <span class="text-muted d-block mb-2">{{ seller.speciality }}</span>
 
+               
+
                 {% if seller.website %}
-                    <p>
+                    <p class="d-block mb-2">
                         <a href="{{ seller.website }}" target="_blank" alt="Seller's website">{{ seller.website }}</a>
                     </p>
                 {% endif %}
-
+                <span class="text-muted d-block mb-2" style="font-size: small;">{{ seller.bio }}</span>
+                {% if user.seller.pk == seller.pk %}
+                <a href="{% url 'seller_editprofile' user.seller.pk  %}" >
+                    <button type="button" class="btn btn-success">Edit Seller Profile</button>
+                </a>
+                                {% elif user.seller.pk != seller.pk %}
                 <button type="button" class="btn btn-success">Message</button>
+                {% endif %}
 
                 <!-- Stats section -->
                 <div class="d-flex justify-content-between align-items-center mt-4 px-4">
                     <div class="stats">
                         <h6 class="mb-0">Total Bid Placed</h6>
-                        <span> 0</span>
+                        <span> {{proposals.count}}</span>
                     </div>
                     <div class="stats">
                         <h6 class="mb-0">Completed Projects</h6>
@@ -54,7 +62,7 @@
                 <hr>
 
                 <!-- Seller bio -->
-                <p>{{ seller.bio }}</p>
+                <p></p>
             </div>
         </div>
     </div>

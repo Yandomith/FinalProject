@@ -214,12 +214,15 @@ class JobListView(LoginRequiredMixin,ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get('q')
+        category = self.request.GET.get('category')
+
         location = self.request.GET.get('location')
 
         if query:
             job_queryset = Job.objects.filter(title__icontains=query)
         elif location:
             job_queryset = Job.objects.filter(buyer__location=location)
+
         else:
             job_queryset = Job.objects.all()
 

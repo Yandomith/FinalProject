@@ -189,13 +189,12 @@ a {
 @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
 
 
-       .card{
-
+       .profile-card{
         width: 400px;
         border: none;
         border-radius: 15px;
         padding: 8px;
-        background-color: #fff;
+        background-color: #ffffff;
         position: relative;
         height: 370px;
        }
@@ -225,7 +224,6 @@ a {
         height: 90px;
         width: 90px;
         border:5px solid #fff;
-
         border-radius: 50%;
 
        }
@@ -269,4 +267,81 @@ a {
     }
     .account-settings .about p {
         font-size: 0.825rem;
+    }
+
+
+
+
+
+    /* for applicants list */
+
+    .applicant-card {
+        border: none;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .applicant-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .applicant-name a {
+        color: #198754; /* Green color for links */
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    .applicant-name a:hover {
+        color: #155d27; /* Darker green for hover effect */
+        text-decoration: underline;
+    }
+
+    .applicant-details {
+        font-size: 1rem;
+        color: #6c757d;
+    }
+
+    .badge-price {
+        background-color: #198754; /* Green color */
+        color: white;
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    .badge-cover {
+        background-color: #17a2b8;
+        color: white;
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    .applicant-buttons a {
+        margin-right: 10px;
+        background-color: #198754; /* Green color for button */
+        color: white;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .applicant-buttons a:hover {
+        background-color: #155d27; /* Darker green for hover effect */
+        color: white;
+    }
+
+    .empty-state {
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 50px;
+        color: #6c757d;
+    }
+
+    .icon {
+        vertical-align: middle;
+        margin-right: 8px;
     }

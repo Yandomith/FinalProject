@@ -1,10 +1,50 @@
-<h1>Applicants for Job: {{ job.title }}</h1>
+{% extends "jobs/_base.html" %}
+{% load icon %}
 
-<h2>Applicants:</h2>
-<ul>
-    {% for applicant in applicants %}
-        <li><a href="{% url 'seller-detail'  applicant.user.seller.id %}">Visit the bider profile</a>{{ applicant.user.seller.name }} - {{ applicant.priceRange }} - {{applicant.coverLetter}}</li>
-    {% empty %}
-        <li>No applicants yet.</li>
-    {% endfor %}
-</ul>
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Applicants for Job: <span class="text-success">{{ job.title }}</span></h1>
+
+    <h2 class="text-muted">Applicants:</h2>
+
+    <div class="row">
+        {% for applicant in applicants %}
+        <div class="col-md-6 mb-4">
+            <div class="applicant-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="applicant-name">
+                            <a href="{% url 'seller-detail' applicant.user.seller.id %}" class="text-green">{{ applicant.user.seller.name }}</a>
+                        </h5>
+                        <p class="applicant-details">
+
+                            <span class="badge badge-price">Price: {{ applicant.priceRange }}</span>
+                        </p>
+                    </div>
+                    <div class="applicant-buttons">
+                        <a href="{% url 'seller-detail' applicant.user.seller.id %}" class="btn btn-view-profile btn-sm">
+                            {% icon 'user' library='feather' %}
+                            View Profile
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <h6 class="text-secondary">
+                        {% icon 'file-text' library='feather' %}
+                        Cover Letter:
+                    </h6>
+                    <p class="applicant-details badge-cover">{{ applicant.coverLetter }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="empty-state">
+                <p>No applicants yet.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

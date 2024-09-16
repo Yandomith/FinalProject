@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
 from jobs.choices import SPECIALITY_CHOICES,LOCATION_CHOICES
 
+
+
 User = get_user_model()
 
 # Create your models here.

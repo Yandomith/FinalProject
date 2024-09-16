@@ -1,21 +1,29 @@
 {% extends 'jobs/_base.html' %}
-    {% block content %}
-    <h1>My Proposals</h1>
-    <ul>
-        <div class="container ">
-     
-            <ul>
-                {% for proposal in proposals %}
-                    <li>
-                        Job: {{ proposal.Job.title }} <br>
-                        Description: {{ proposal.priceRange }} <br>
-                        Sent at: {{ proposal.timestamp }}
-                    </li>
-                {% empty %}
-                    <li>No proposals sent yet.</li>
-                {% endfor %}
-            </ul>
 
-    </ul>
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">My Proposals</h1>
+
+    <div class="row">
+        {% for proposal in proposals %}
+        <div class="col-md-6 mb-4">
+            <div class="proposal-card border p-3 rounded shadow-sm">
+                <h5 class="mb-2">
+                    <a href="{% url 'job-detail' proposal.Job.code %}" class="text-decoration-none text-success">
+                        {{ proposal.Job.title }}
+                    </a>
+                </h5>
+                <p><strong>Description:</strong> {{ proposal.priceRange }}</p>
+                <p><strong>Sent at:</strong> {{ proposal.timestamp }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                No proposals sent yet.
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endblock content %}
+</div>
+{% endblock content %}

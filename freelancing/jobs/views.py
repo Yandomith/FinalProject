@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView,UpdateView
-
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseForbidden,HttpResponse
+
 from jobs.models import Seller, Buyer, Job,ApplyJob,Notification, User
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -43,8 +43,15 @@ def handle_login(request):
         return redirect(reverse_lazy('job-list'))
     return render(request, 'jobs/choose_account.html')
 
+
 def home (request):
-    return render (request, 'jobs/home.html')
+    if not request.user.is_authenticated:
+        return render (request, 'jobs/home.html')
+    else:
+        return redirect(reverse_lazy('job-list'))
+
+
+
 
 
 

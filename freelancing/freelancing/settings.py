@@ -54,8 +54,10 @@ INSTALLED_APPS = [
     'accounts',
 
     # extra lib
+
     'django_feather',
     'bootstrap5'
+
 ]
 
 MIDDLEWARE = [

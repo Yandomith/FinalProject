@@ -1,19 +1,42 @@
 {% extends 'jobs/_base.html' %}
-    {% block content %}
-    <h1>My Posted Jobs</h1>
-    <ul>
-        <div class="container ">
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">My Posted Jobs</h1>
+
+    <div class="row">
         {% for job in jobs %}
-            <li>
-                {{ job.title }}  <br> Posted - {{ job.timestamp }} <br><br>
-                <a href="{% url 'all_applicants' job.code %}">View all Bids </a>
-                <br><br>
-                <a href="{% url 'job-delete' job.code %}">Delete</a><br>
-                <a href="{% url 'job-update' job.code %}">update</a> <br>
-                {{job.applyjob_set.all.count}} have Applied to this job.
-                <br><br>
-            </li>
+        <div class="col-md-6 mb-4">
+            <div class="job-card border border-success p-4 rounded shadow-sm">
+                <h5 class="mb-3 text-success">
+                    {{ job.title }}
+                </h5>
+                <p class="text-muted mb-3">
+                    Posted on {{ job.timestamp|date:"F j, Y" }}
+                </p>
+                <div class="d-flex justify-content-between mb-3">
+                    <a href="{% url 'all_applicants' job.code %}" class="btn btn-success btn-sm">
+                        View All Bids
+                    </a>
+                    <a href="{% url 'job-update' job.code %}" class="btn btn-warning btn-sm text-white">
+                        Update
+                    </a>
+                    <a href="{% url 'job-delete' job.code %}" class="btn btn-danger btn-sm text-white">
+                        Delete
+                    </a>
+                </div>
+                <p class="mb-0">
+                    <strong>{{ job.applyjob_set.count }}</strong> have applied to this job.
+                </p>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                No jobs posted yet.
+            </div>
+        </div>
         {% endfor %}
-    </ul>
     </div>
-    {% endblock content %}
+</div>
+{% endblock content %}

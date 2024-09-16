@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conversations</title>
+    <style>
+        .user-list {
+            width: 60%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .user-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .user-list li {
+            margin-bottom: 10px;
+        }
+        .user-list a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .user-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="user-list">
+        <h1>Conversations</h1>
+        <ul>
+
+            {% for user in other_users %}
+            <li>
+            {% if user.role == "Seller" %}
+                <a href="{% url 'chat_thread' user.pk %}">{{ user.seller.name }}</a>
+            {% elif user.role == "Buyer" %}
+                <a href="{% url 'chat_thread' user.pk %}">{{ user.buyer.name }}</a>
+            {% endif %}
+              </li>
+            {% empty %}
+                <li>No recent conversations</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

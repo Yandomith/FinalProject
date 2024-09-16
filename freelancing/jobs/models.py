@@ -82,3 +82,15 @@ class Notification(models.Model):
         return f"Message for {self.user.username} at {self.timestamp}"
     class Meta:
         ordering = ['-timestamp'] 
+
+
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
+    body = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Message from {self.sender} to {self.receiver}"

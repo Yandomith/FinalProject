@@ -4,11 +4,13 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseForbidden,HttpResponse
 
-from jobs.models import Seller, Buyer, Job,ApplyJob,Notification, User
+from django.db import models
+
+from jobs.models import Seller, Buyer, Job,ApplyJob,Notification, User, Message
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from .forms import JobForm
+from .forms import JobForm,MessageForm
 from .choices import SPECIALITY_CHOICES , LOCATION_CHOICES
 
 
@@ -389,3 +391,68 @@ def mark_notifications_as_read(request):
     notifications.update(is_read=True)
 
 
+
+
+
+
+
+
+
+
+@login_required
+def chat_thread(request, pk):
+    # Get the other user (seller) involved in the chat by pk
+    other_user = get_object_or_404(User, pk=pk)
+    
+    # Get all messages between the current user and the other user
+    messages = Message.objects.filter(
+        (models.Q(sender=request.user) & models.Q(receiver=other_user)) |
+        (models.Q(sender=other_user) & models.Q(receiver=request.user))
+    ).order_by('timestamp')
+    
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.receiver = other_user
+            message.save()
+            if other_user != request.user:  # Ensure we are not notifying the current user
+                create_notification(other_user, f"You have a new message from {request.user.username}")
+            return redirect('chat_thread', pk=pk)  # Redirect to the same chat thread
+    else:
+        form = MessageForm()
+
+    return render(request, 'chat/chat_thread.html', {
+        'form': form,
+        'messages': messages,
+        'other_user': other_user
+    })
+
+
+
+
+@login_required
+def user_list(request):
+    # Retrieve all messages where the current user is either the sender or the receiver
+    messages = Message.objects.filter(
+        models.Q(sender=request.user) | models.Q(receiver=request.user)
+    )
+
+    # Create a set to hold unique users
+    user_set = set()
+
+    # Iterate through messages to collect users
+    for message in messages:
+        if message.sender != request.user:
+            user_set.add(message.sender)
+        if message.receiver != request.user:
+            user_set.add(message.receiver)
+
+    # Convert the set to a list and exclude the current user
+    other_users = list(user_set)
+    other_users = [user for user in other_users if user != request.user]
+
+    return render(request, 'chat/user_list.html', {
+        'other_users': other_users
+    })

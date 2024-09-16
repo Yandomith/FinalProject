@@ -1,0 +1,9 @@
+<h2>Sent Messages</h2>
+<ul>
+    {% for message in messages %}
+        <li><strong>To {{ message.receiver.username }}</strong>: {{ message.body }} <em>({{ message.timestamp }})</em></li>
+    {% empty %}
+        <li>No sent messages.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'compose_message' %}">Compose a new message</a>

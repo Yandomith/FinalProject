@@ -1,0 +1,9 @@
+<h2>Inbox</h2>
+<ul>
+    {% for message in messages %}
+        <li><strong>{{ message.sender.username }}</strong>: {{ message.body }} <em>({{ message.timestamp }})</em></li>
+    {% empty %}
+        <li>No messages.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'compose_message' %}">Compose a new message</a>

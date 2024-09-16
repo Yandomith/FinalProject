@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,BuyerDetailView,handle_login,JobDetailView,JobCreateView,JobListView,JobUpdateView,ApplyJobCreateView,my_jobs,delete_job, home,all_applicants, notifications_view, mark_notifications_as_read ,SellerProfileUpdateView,BuyerProfileUpdateView, my_proposalsListView
+from .views import SellerListView, SellerDetailView,SellerCreateView,BuyerCreateView,BuyerDetailView,handle_login,JobDetailView,JobCreateView,JobListView,JobUpdateView,ApplyJobCreateView,my_jobs,delete_job, home,all_applicants, notifications_view, mark_notifications_as_read ,SellerProfileUpdateView,BuyerProfileUpdateView, my_proposalsListView,chat_thread , user_list
 
 
 
-
+# ,inbox,sent_messages,compose_message
 urlpatterns = [
     path("", home, name="index"),
      path('seller/profile/<int:pk>/', SellerProfileUpdateView.as_view(), name='seller_editprofile'),
@@ -28,9 +28,14 @@ urlpatterns = [
     path('delete-job/<str:job_code>/', delete_job, name='job-delete'),
     path('applicants/<str:code>', all_applicants, name='all_applicants'),
 
-
-
     path('notifications/', notifications_view, name='notifications'),
     path('notifications/mark-as-read/', mark_notifications_as_read,name='mark-notifications-as-read'),
+
+    # path('inbox/', inbox, name='inbox'),
+    # path('sent/', sent_messages, name='sent_messages'),
+    # path('compose/', compose_message, name='compose_message'),
+
+    path('chat/<int:pk>/', chat_thread, name='chat_thread'),
+    path('conversations/', user_list, name='user_list'),
 ]
     

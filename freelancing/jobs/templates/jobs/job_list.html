@@ -4,14 +4,14 @@
 {% load icon %}
 
 <div class="container ">    
-    <div class="row text-center pb-4 pt-2"> 
+    <div class="row text-center pb-4 pt-5"> 
         <div>Browse the most recent jobs that match your skills and profile description to the skills clients are looking for.</div>
     </div>    
     <div class="job-listing-area pt-120 pb-120">
         <div class="container">
             <div class="row">
                 <!-- Left content -->
-                <div class="col-xl-3 col-lg-3 col-md-4">
+                <div class="bg-light col-lg-3 col-md-4 p-4">
                     <div class="row">
                         <div class="col-12">
                                 <h5>Filter Jobs</h5>     
@@ -111,18 +111,18 @@
                     <!-- Job Category Listing End -->
                 </div>
                 <!-- Right content -->
-                <div class="col-xl-9 col-lg-9 col-md-8">
-                    <!-- Featured_job_start -->
-                    <section class="featured-job-area">
+                <div class="  col-lg-9 col-md-8">
+   
+                    <section class="featured-job-area ">
                         <div class="container">
-                            <!-- Count of Job list Start -->
+                  
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div>
                                         {% if request.GET.q %}
                                             <p>Search results for "{{ request.GET.q }}":</p>
                                         {% endif %}
-                                        <span class="float-start">{{ total_jobs_count }} jobs available</span>
+                                        <span class="float-start">{{ jobs.count }} jobs available</span>
                                         <!-- Select job items start -->
 
                                         <!-- <div class="float-end">
@@ -140,19 +140,16 @@
                             </div>
                         {% for job in jobs %}
                         <div class="row">
-                            <div class="single-job-items  ">
+                            <div class="single-job-items ">
                                 {% if job.has_applied %}
                                 <p class="text-end">you have apppled to this job already </p>
                             {% else %}
                                
                            {% endif %}
-                                <div class="job-tittle col-8 float-start text-wrap">
-                                       
+                                <div class="job-tittle col-8 float-start text-wrap"> 
                                         <a href="{% url 'job-detail' job.code %}" class=" text-decoration-none">
-                                            {{ job.title}}
-                                           
-                                        </a>
-                                        
+                                            {{ job.title}}   
+                                        </a> 
                                         <p class="text-truncate pt-2 " >{{job.description}}</p>
                                         <ul>
                                             <li> {% icon "user" %} <a href="{% url 'buyer-detail' job.buyer.id %}">{{ job.buyer.name}} </a> </li>
@@ -160,7 +157,6 @@
                                             <li>{{ job.buyer.experience}}</li>
                                             <li>Rs. {{job.budget|intcomma}}</li>
                                         </ul>
-                                 
                                 </div>
                                 <div class="items-link float-end">
                                     <a href="{% url 'job-detail' job.code %}" class="text-decoration-none">Apply</a>
@@ -179,19 +175,19 @@
     </div>
 
 
-    <div class="pagination-area pb-115 text-center">
+    <div class="pagination-area pb-115 text-center pt-3">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
                     <nav aria-label="Page navigation ">
                         <ul class="pagination justify-content-center">
                             {% if page_obj.has_previous %}
-                                <li class="page-item">
+                                <li class="page-item p-1">
                                     <a class="page-link" href="?page=1" aria-label="First">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li class="page-item">
+                                <li class="page-item p-1">
                                     <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
                                         <span aria-hidden="true">&lsaquo;</span>
                                     </a>
@@ -200,23 +196,23 @@
         
                             {% for num in page_obj.paginator.page_range %}
                                 {% if num == page_obj.number %}
-                                    <li class="page-item active" aria-current="page">
+                                    <li class="page-item active p-1" aria-current="page">
                                         <a class="page-link" href="?page={{ num }}">{{ num }}</a>
                                     </li>
                                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                                    <li class="page-item">
+                                    <li class="page-item p-1">
                                         <a class="page-link" href="?page={{ num }}">{{ num }}</a>
                                     </li>
                                 {% endif %}
                             {% endfor %}
         
                             {% if page_obj.has_next %}
-                                <li class="page-item">
+                                <li class="page-item p-1">
                                     <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
                                         <span aria-hidden="true">&rsaquo;</span>
                                     </a>
                                 </li>
-                                <li class="page-item">
+                                <li class="page-item p-1">
                                     <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>

@@ -31,11 +31,7 @@ urlpatterns = [
     path('notifications/', notifications_view, name='notifications'),
     path('notifications/mark-as-read/', mark_notifications_as_read,name='mark-notifications-as-read'),
 
-    # path('inbox/', inbox, name='inbox'),
-    # path('sent/', sent_messages, name='sent_messages'),
-    # path('compose/', compose_message, name='compose_message'),
-
     path('chat/<int:pk>/', chat_thread, name='chat_thread'),
-    path('conversations/', user_list, name='user_list'),
+    path('conversations/', user_list, name='conversations'),
 ]
     

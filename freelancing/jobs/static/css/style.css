@@ -185,10 +185,6 @@ a {
 
 
 
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
-
-
        .profile-card{
         width: 400px;
         border: none;
@@ -196,13 +192,12 @@ a {
         padding: 8px;
         background-color: #ffffff;
         position: relative;
-        height: 370px;
+        height: 400px;
        }
 
        .upper{
 
         height: 300px;
-
        }
 
        .upper img{

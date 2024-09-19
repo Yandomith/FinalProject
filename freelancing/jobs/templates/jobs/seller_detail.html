@@ -1,9 +1,9 @@
-{% extends 'jobs/_base.html' %}
+    {% extends 'jobs/_base.html' %}
 
 {% block content %}
     <h1 class="text-center pt-3"> User Details </h1>
 
-    <div class="container d-flex justify-content-center align-items-center">
+    <div class="container d-flex justify-content-center align-items-center ">
         <div class=" card profile-card">
             <!-- Upper banner image -->
             <div class="upper">
@@ -35,7 +35,7 @@
                     </p>
                 {% endif %}
 
-                <span class="text-muted d-block mb-2" style="font-size: small;">{{ seller.bio }}</span>
+
 
                 {% if user.seller.pk == seller.pk %}
 
@@ -45,8 +45,7 @@
                 </a>
 
                 {% elif user.seller.pk != seller.pk %}
-                    <li><a href="{% url 'chat_thread' seller.owner.pk %}">{{ seller.owner.pk }}  <button type="button" class="btn btn-success">Message</button></a></li>
-               
+                    <a href="{% url 'chat_thread' seller.owner.pk %}"><button type="button" class="btn btn-success">Message</button></a>
                 {% endif %}
 
                 <!-- Stats section -->
@@ -68,6 +67,7 @@
                 <hr>
 
                 <!-- Seller bio -->
+                <span class="text-muted d-block mb-2" style="font-size: small;">{{ seller.bio }}</span>
                 <p></p>
             </div>
         </div>

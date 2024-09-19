@@ -27,8 +27,7 @@
             <div class="mt-5 text-center">
                 <h4 class="mb-0">{{ buyer.name }}</h4>
                 <span class="text-muted d-block">{{ buyer.tagline }}</span>
-                <span class="text-muted d-block mb-2" style="font-size: small;">{{ seller.bio }}</span>
-
+        
                 {% if user.buyer.pk == buyer.pk %}
                 <a href="{% url 'buyer_editprofile' user.buyer.pk  %}">
                     <button type="button" class="btn btn-success">Edit Buyer Profile</button>
@@ -54,6 +53,7 @@
                 </div>
 
                 <hr>
+                <span class="text-muted d-block mb-2" style="font-size: small;">{{ seller.bio }}</span>
 
 
 

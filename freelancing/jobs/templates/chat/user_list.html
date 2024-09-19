@@ -1,3 +1,5 @@
+{% extends 'jobs/_base.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +30,8 @@
     </style>
 </head>
 <body>
+
+
     <div class="user-list">
         <h1>Conversations</h1>
         <ul>
@@ -45,5 +49,6 @@
             {% endfor %}
         </ul>
     </div>
+    {% endblock content %}
 </body>
 </html>
